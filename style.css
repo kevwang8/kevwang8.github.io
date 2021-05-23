@@ -1,0 +1,111 @@
+/* Style sheet
+   color picker www.w3schools.com/colors/colors_picker.asp
+*/
+
+hr {
+  height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-color: powderblue;
+}
+
+h1 {
+  font-family: Tahoma , sans-serif;
+	font-size: 45px;
+	text-align: center;
+	margin: 0;
+	padding: 20px 0;
+	color: black;
+}
+
+img {
+  font-family: Helvetica, sans-serif;
+  display: block;
+  margin: 0 auto;
+  align: center;
+}
+
+
+table {
+	border: 1px solid black;
+	background-color: #f1f1c1;
+}
+.center {
+  text-align: center;
+}
+
+/* Defining styling for a specific element type - each question */
+.question {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #005B9A;
+  padding-top: 0;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  background-color: #d3ebed;
+}
+
+.questionTitle {
+  font-family: Georgia , sans-serif;
+  font-size: 20px;
+}
+
+/* Defining styling for a specific element type - large block buttons */
+.block {
+  background-color: #4CAF50; /* Green */
+  padding: 13px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #4CAF50;
+  border-radius: 25px;
+}
+
+.block:hover {
+  background-color: #3e9641;
+  border: 2px solid #005B9A;
+  transition: all .25s ease;
+}
+
+.link {
+  background-color: #4CAF50; /* Green */
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #4CAF50;
+  border-radius: 25px;
+}
+
+.link:hover {
+  background-color: #3e9641;
+  border: 2px solid #005B9A;
+  transition: all .25s ease;
+}
+
+ .align{
+
+	position: relative;
+	left: 19.4%;
+}
+
+/* Defining styling for a specific element with an id */
+#signature {
+  text-align: right;
+  color: red;
+  font-style: italic;
+  font-size: 75%;
+}
+
+.image {
+  border: 3px solid #005B9A;
+
+}
