@@ -1,24 +1,33 @@
 /* Style sheet
    color picker www.w3schools.com/colors/colors_picker.asp
 */
-
-hr {
-  height: 12px;
-    border: 0;
-    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
-}
-
 body {
+margin:0 auto;
+padding:0;
+}
+/*body {
+  background-color: #b2e7eb;
+}*/
+
+
+.header {
   background-color: powderblue;
+  height: 75px;
+  border-bottom: 3px solid #005B9A;
 }
 
-h1 {
-  font-family: Tahoma , sans-serif;
+.title {
+  font-family: sans-serif;
 	font-size: 45px;
+  padding-top: 10px;
 	text-align: center;
-	margin: 0;
-	padding: 20px 0;
 	color: black;
+  margin-block-start: 0;
+}
+
+h2 {
+  font-family: sans-serif;
+  font-size: 20px;
 }
 
 img {
@@ -26,13 +35,15 @@ img {
   display: block;
   margin: 0 auto;
   align: center;
+  width: 650px;
+  height: 400px
 }
 
-
-table {
-	border: 1px solid black;
-	background-color: #f1f1c1;
+footer {
+  background-color: #383838;
+  margin-top: 20px;
 }
+
 .center {
   text-align: center;
 }
@@ -44,33 +55,36 @@ table {
   border: 3px solid #005B9A;
   padding-top: 0;
   padding-right: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   padding-left: 10px;
   background-color: #d3ebed;
+  font-family: sans-serif;
 }
 
 .questionTitle {
-  font-family: Georgia , sans-serif;
   font-size: 20px;
 }
 
 /* Defining styling for a specific element type - large block buttons */
-.block {
+.submit {
   background-color: #4CAF50; /* Green */
   padding: 13px 32px;
   text-align: center;
+
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
   border: 2px solid #4CAF50;
   border-radius: 25px;
+   font-family:  sans-serif;
 }
 
-.block:hover {
+.submit:hover {
   background-color: #3e9641;
   border: 2px solid #005B9A;
   transition: all .25s ease;
+  color: white;
 }
 
 .link {
@@ -89,21 +103,24 @@ table {
   background-color: #3e9641;
   border: 2px solid #005B9A;
   transition: all .25s ease;
+  color: white;
 }
 
- .align{
-
-	position: relative;
-	left: 19.4%;
+.choiceMargin {
+  margin-bottom: 10px;
 }
-
 /* Defining styling for a specific element with an id */
 #signature {
   text-align: right;
-  color: red;
+  color: white;
   font-style: italic;
-  font-size: 75%;
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 7px;
+  margin-top: 10px;
 }
+
 
 .image {
   border: 3px solid #005B9A;
