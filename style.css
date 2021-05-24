@@ -59,29 +59,9 @@ footer {
   font-size: 20px;
 }
 
-/* Defining styling for a specific element type - large block buttons */
-.submit {
-  background-color: #4CAF50; /* Green */
-  padding: 13px 32px;
-  text-align: center;
 
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border: 2px solid #4CAF50;
-  border-radius: 25px;
-   font-family:  sans-serif;
-}
 
-.submit:hover {
-  background-color: #3e9641;
-  border: 2px solid #005B9A;
-  transition: all .25s ease;
-  color: white;
-}
-
-.link {
+.button {
   background-color: #4CAF50; /* Green */
   padding: 10px 20px;
   text-align: center;
@@ -91,9 +71,10 @@ footer {
   cursor: pointer;
   border: 2px solid #4CAF50;
   border-radius: 25px;
+  font-family:  sans-serif;
 }
 
-.link:hover {
+.button:hover {
   background-color: #3e9641;
   border: 2px solid #005B9A;
   transition: all .25s ease;
