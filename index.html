@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<!-- IMPORTANT to use a CSS file - external -->
+	<link href="style.css" rel="stylesheet" type="text/css">
+    <title>Questionnaire</title>
+  </head>
+
+  <body>
+      <div class="header">
+  	     <h1 class="title">Costco UI Survey</h1>
+      </div>
+
+    	<form id="myform" action="index.php">
+
+        <br>
+    	  <br>
+    	<!-- Choose a website to evaluate -->
+      	<h2 class="center">Answer these questions based off the UI of the Costco website.<br> To enter the website, click the button below. <br><br><a class="button" href="https://www.costco.ca/" target=_blank>Click Here</a></h2>
+
+        <br>
+      	<br>
+      	<!-- You should make your image clickable-->
+      	<a  href="https://www.costco.ca/" target=_blank><img class="image" src="Costco_FrontPage.PNG" alt="https://www.costco.ca/" width="450" height="300"></a>
+
+      	<br>
+      	<br>
+
+      	<div class="question">
+      	  <p class="questionTitle"> <b>1. What is your age?</b> </p>
+      	  <p>Age: <input type="text" name="firstname"></p>
+      	</div>
+
+        <br>
+
+      	<div class="question" >
+      		<p class="questionTitle"> <b>2. Select the one(s) you found difficult to do(If any)</b> </p>
+      		<input class="choiceMargin" type="checkbox" name="Color" value="Red">Finding sales and recommended products<br>
+      		<input class="choiceMargin" type="checkbox" name="Color" value="Green">Searching and browsing items<br>
+      		<input class="choiceMargin" type="checkbox" name="Color" value="Blue">Submitting feedback<br>
+          <input class="choiceMargin" type="checkbox" name="Color" value="Blue">Adding items to cart<br>
+          <input class="choiceMargin" type="checkbox" name="Color" value="Blue">Signing into your account<br>
+        </div>
+
+      	<br>
+
+        <div class="question" >
+      		<p class="questionTitle"> <b>3. How difficult is reading information on the screen?</b> </p>
+      		<input class="choiceMargin" type="radio" name="Color" value="Very hard">Very hard<br>
+      		<input class="choiceMargin" type="radio" name="Color" value="Somewhat hard">Somewhat hard<br>
+      		<input class="choiceMargin" type="radio" name="Color" value="Somewhat easy">Somewhat easy<br>
+          <input class="choiceMargin" type="radio" name="Color" value="Very easy">Very easy<br>
+        </div>
+
+        <br>
+
+        <div class="question">
+      		<p class="questionTitle"> <b>4. How would you rate the overall user interface out of 5? (1 being the lowest and 5 being the highest)</b></p>
+      		<select>
+      			<option value="One">1</option>
+      			<option value="Two">2</option>
+      			<option value="Three">3</option>
+      			<option value="Four">4</option>
+            <option value="Five" selected="selected">5</option>
+      		</select>
+      	</div>
+
+      	<br>
+
+        <div class="question">
+      	   <p class="questionTitle"><b>5. Do you have any other suggestions for the Costco website UI?</b></p>
+      	   <textarea class-"center" rows="7" cols="50"></textarea>
+        </div>
+
+      	<br>
+      	<br>
+
+        <div class="center">
+        	<a type="button" class="button">SUBMIT</a>
+        </div>
+      </form>
+    <footer>
+    	<div id="signature">Site created by Kevin Wang</div>
+    </footer>
+  </body>
+</html>

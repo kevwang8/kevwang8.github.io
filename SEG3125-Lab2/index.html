@@ -7,6 +7,9 @@
 
 <body>
 
+<div>
+	<h1>BASIC FOODS</h1>
+</div>
 <!-- Tab links, each one with an onclick event associated with it -->
 <div class="tab">
   <button class="tablinks" onclick="openInfo(event, 'Client')">Client</button>
@@ -19,12 +22,16 @@
   <h3>Client Information</h3>
   <p>Tell us a bit about you.</p>
 	Choose a Category:
-	<select id="dietSelect" name="dietSelect" onchange="populateListProductChoices(this.id, 'displayProduct')">
+	<!--<select id="dietSelect" name="dietSelect" onchange="populateListProductChoices(this.id, 'displayProduct')">
 	<option value=""></option>
-	<option value="Vegetarian">Vegetarian</option>
-    <option value="GlutenFree">GlutenFree</option>
+	<option value="Lactose-intolerant">Vegetarian</option>
+    <option value="Nut allergies">GlutenFree</option>
     <option value="None">None</option>
-	</select>
+	</select>-->
+	<input type="checkbox" name="personal" id="personal1" value="Lactose-intolerant">
+	<label for="personal1"> Lactose-intolerant</label><br>
+
+
 </div>
 
 <div id="Products" class="tabcontent">
@@ -41,6 +48,10 @@
   <h3>Cart</h3>
   <p>Here is your cart.</p>
   <div id="displayCart"></div>
+</div>
+
+<div>
+	<footer><i>Site Created by Billy Bob Joe</i></footer>
 </div>
 
 <script src="scripts/groceries.js"></script>

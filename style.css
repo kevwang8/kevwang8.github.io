@@ -1,0 +1,103 @@
+
+body {
+margin:0 auto;
+padding:0;
+}
+
+.header {
+  background-color: powderblue;
+  height: 75px;
+  border-bottom: 3px solid #005B9A;
+}
+
+.title {
+  font-family: sans-serif;
+	font-size: 45px;
+  padding-top: 10px;
+	text-align: center;
+	color: black;
+  margin-block-start: 0;
+}
+
+h2 {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+img {
+  font-family: Helvetica, sans-serif;
+  display: block;
+  margin: 0 auto;
+  align: center;
+  width: 650px;
+  height: 400px
+}
+
+footer {
+  background-color: #383838;
+  margin-top: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* Defining styling for a specific element type - each question */
+.question {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #005B9A;
+  padding-top: 0;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  background-color: #d3ebed;
+  font-family: sans-serif;
+}
+
+.questionTitle {
+  font-size: 20px;
+}
+
+
+
+.button {
+  background-color: #4CAF50; /* Green */
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #4CAF50;
+  border-radius: 25px;
+  font-family:  sans-serif;
+}
+
+.button:hover {
+  background-color: #3e9641;
+  border: 2px solid #005B9A;
+  transition: all .25s ease;
+  color: white;
+}
+
+.choiceMargin {
+  margin-bottom: 10px;
+}
+/* Defining styling for a specific element with an id */
+#signature {
+  text-align: right;
+  color: white;
+  font-style: italic;
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 7px;
+  margin-top: 10px;
+}
+
+
+.image {
+  border: 3px solid #005B9A;
+
+}
