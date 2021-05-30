@@ -2,7 +2,7 @@
 
 h1 {
   font-family: "Courier", sans-serif;
-  font-size: 30px;
+  font-size: 33px;
   margin-left: 10px;
 }
 
@@ -23,6 +23,7 @@ h1 {
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+  font-size: 15px;
 }
 
 /* Change background color of buttons on hover */
@@ -44,27 +45,39 @@ h1 {
   font-family: sans-serif;
 }
 
+/*Style the buttons */
 .buttonMargin button {
   margin-top: 10px;
   font-size: 17px;
 }
 
+/*Style the checkboxes */
 input {
   margin-bottom: 14px;
   width: 15px;
   height: 15px;
 }
 
+/*Style the checkbox labels */
 label {
   font-size: 18px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
+label:hover {
+  background-color: #f0f0f0;
+}
+
+/*Style the footer */
 footer {
   margin-top: 10px;
   margin-right: 10px;
   text-align: right;
 }
 
-.fontSize p {
-  font-size: 15px;
+/*Style the paragraphs */
+.paraStyle p {
+  font-size: 17px;
+  margin-bottom: 10px;
 }

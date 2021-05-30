@@ -36,7 +36,7 @@ function populateListProductChoices(slct2) {
       }
     }
 
-  var s2 = document.getElementById(slct2);
+    var s2 = document.getElementById(slct2);
 
 	// s2 represents the <div> in the Products tab, which shows the product list, so we first set it empty
     s2.innerHTML = "";
@@ -63,7 +63,7 @@ function populateListProductChoices(slct2) {
 		// create a label for the checkbox, and also add in HTML DOM
 		var label = document.createElement('label')
 		label.htmlFor = productName;
-		label.appendChild(document.createTextNode(productName+" - $"+optionArray[i].price.toString()));
+		label.appendChild(document.createTextNode(" "+productName+" - $"+optionArray[i].price.toString()));
 		s2.appendChild(label);
 
 		// create a breakline node and add in HTML DOM
@@ -98,6 +98,14 @@ function selectedItems(){
 
 	// add paragraph and total price
 	c.appendChild(para);
-	c.appendChild(document.createTextNode("Total Price is $" + getTotalPrice(chosenProducts)));
+  var para2 = document.createElement("P");
+  para2.appendChild(document.createTextNode("Total Price is $" + getTotalPrice(chosenProducts)))
+	c.appendChild(para2);
 
+}
+
+//Code learned from https://stackoverflow.com/questions/22574344/how-to-make-a-button-that-will-uncheck-all-checkboxes/22574416
+function uncheckAll() {
+  document.querySelectorAll('input[type="checkbox"]')
+    .forEach(el => el.checked = false);
 }

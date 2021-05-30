@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<! This style sheet is taken from  https://www.w3schools.com/howto/howto_js_tabs.asp>
 	<link href="styles/style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -12,23 +11,26 @@
 </div>
 <!-- Tab links, each one with an onclick event associated with it -->
 <div class="tab">
-  <button class="tablinks" onclick="openInfo(event, 'Client')" id="defaultOpen">Client</button>
+  <button class="tablinks" onclick="openInfo(event, 'Client')" id="defaultOpen">Preferences</button>
   <button class="tablinks" onclick="openInfo(event, 'Products')">Products</button>
   <button class="tablinks" onclick="openInfo(event, 'Cart')">Cart</button>
 </div>
 
 <!-- Tab content -->
-<div id="Client" class="tabcontent">
-  <h3>Client Information</h3>
-  <p>Tell us a bit about you.</p>
-	Choose all that apply to you and press 'Apply' button:<br><br>
+<div id="Client" class="tabcontent buttonMargin">
+  <h3>Your Shopping Preferences</h3>
+	Choose all that apply and press 'Apply' button: <br><i>(Press the button even if none selected)</i><br><br>
 	<input type="checkbox" name="personal" id="personal1" value="Lactose-intolerant">
 	<label for="personal1"> Lactose-intolerant</label><br>
 	<input type="checkbox" name="personal" id="personal2" value="Nut Allergies">
 	<label for="personal2"> Nut Allergies</label><br>
 	<input type="checkbox" name="personal" id="personal3" value="Prefer Organic Foods">
-	<label for="personal3"> Prefer Organic Foods</label><br>
-	<button onclick="populateListProductChoices('displayProduct')">Apply</button>
+	<label for="personal3"> Prefer Only Organic Foods</label><br>
+
+	<button onclick="populateListProductChoices('displayProduct')">Apply</button><br><br>
+
+	<button  onclick="uncheckAll();populateListProductChoices('displayProduct')">
+	 Clear Selection</button>
 </div>
 
 <div id="Products" class="tabcontent buttonMargin">
@@ -39,12 +41,11 @@
 	 <button id="addCart" type="button" onclick="selectedItems()">
 		Add selected items to cart.
 	</button><br><br>
-	<button  onclick="populateListProductChoices('displayProduct')">
-	 Clear Selection
- </button>
+
+	<button  onclick="populateListProductChoices('displayProduct')">Clear Selection</button>
 </div>
 
-<div id="Cart" class="tabcontent fontSize">
+<div id="Cart" class="tabcontent paraStyle">
   <h3>Cart</h3>
   <p>Here is your cart.</p>
   <div id="displayCart"></div>
