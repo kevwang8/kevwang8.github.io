@@ -41,10 +41,30 @@ h1 {
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
+  font-family: sans-serif;
+}
+
+.buttonMargin button {
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+input {
+  margin-bottom: 14px;
+  width: 15px;
+  height: 15px;
+}
+
+label {
+  font-size: 18px;
 }
 
 footer {
   margin-top: 10px;
   margin-right: 10px;
   text-align: right;
+}
+
+.fontSize p {
+  font-size: 15px;
 }

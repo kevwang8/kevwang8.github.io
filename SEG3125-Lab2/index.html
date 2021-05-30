@@ -8,11 +8,11 @@
 <body>
 
 <div>
-	<h1>BASIC FOODS</h1>
+	<h1>BILLY JOE FOODS</h1>
 </div>
 <!-- Tab links, each one with an onclick event associated with it -->
 <div class="tab">
-  <button class="tablinks" onclick="openInfo(event, 'Client')">Client</button>
+  <button class="tablinks" onclick="openInfo(event, 'Client')" id="defaultOpen">Client</button>
   <button class="tablinks" onclick="openInfo(event, 'Products')">Products</button>
   <button class="tablinks" onclick="openInfo(event, 'Cart')">Cart</button>
 </div>
@@ -21,38 +21,39 @@
 <div id="Client" class="tabcontent">
   <h3>Client Information</h3>
   <p>Tell us a bit about you.</p>
-	Choose a Category:
-	<!--<select id="dietSelect" name="dietSelect" onchange="populateListProductChoices(this.id, 'displayProduct')">
-	<option value=""></option>
-	<option value="Lactose-intolerant">Vegetarian</option>
-    <option value="Nut allergies">GlutenFree</option>
-    <option value="None">None</option>
-	</select>-->
+	Choose all that apply to you and press 'Apply' button:<br><br>
 	<input type="checkbox" name="personal" id="personal1" value="Lactose-intolerant">
 	<label for="personal1"> Lactose-intolerant</label><br>
-
-
+	<input type="checkbox" name="personal" id="personal2" value="Nut Allergies">
+	<label for="personal2"> Nut Allergies</label><br>
+	<input type="checkbox" name="personal" id="personal3" value="Prefer Organic Foods">
+	<label for="personal3"> Prefer Organic Foods</label><br>
+	<button onclick="populateListProductChoices('displayProduct')">Apply</button>
 </div>
 
-<div id="Products" class="tabcontent">
-  <h3>Your targeted products</h3>
+<div id="Products" class="tabcontent buttonMargin">
+  <h3>Your Targeted Products</h3>
   <p>We preselected products based on your restrictions.</p>
-	 Choose items to buy:
+	 Choose items to buy: <br><br>
 	 <div id="displayProduct"></div>
-	 <button id="addCart" type="button" class="block" onclick="selectedItems()">
+	 <button id="addCart" type="button" onclick="selectedItems()">
 		Add selected items to cart.
-	</button>
+	</button><br><br>
+	<button  onclick="populateListProductChoices('displayProduct')">
+	 Clear Selection
+ </button>
 </div>
 
-<div id="Cart" class="tabcontent">
+<div id="Cart" class="tabcontent fontSize">
   <h3>Cart</h3>
   <p>Here is your cart.</p>
   <div id="displayCart"></div>
 </div>
 
 <div>
-	<footer><i>Site Created by Billy Bob Joe</i></footer>
+	<footer><i>Site Designed by Billy Joe</i></footer>
 </div>
+
 
 <script src="scripts/groceries.js"></script>
 <script src="scripts/main.js"></script>
