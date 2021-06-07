@@ -157,3 +157,7 @@ function backProducts() {
 	document.getElementById('title2').style.fontWeight = "700";
 	document.getElementById('title3').style.fontWeight = "500";
 }
+
+function popup() {
+  alert("Your Order Has Been Placed!");
+}
