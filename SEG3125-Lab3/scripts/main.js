@@ -1,7 +1,7 @@
 
 // This function is called when any of the tab is clicked
 // It is adapted from https://www.w3schools.com/howto/howto_js_tabs.asp
-
+var count =0;
 openInfo("Client");
 
 function openInfo(tabName) {
@@ -132,7 +132,20 @@ function nextProducts() {
 }
 
 function backProfile() {
-  if (confirm("Your product selections and cart will be cleared!")) {
+	if (count == 0){
+	  if (confirm("Your product selections and cart will be cleared!")) {
+			document.getElementById('c1').style.backgroundColor = '#e0a722';
+			document.getElementById('line1').style.backgroundColor = '#e0eaff';
+			document.getElementById('line2').style.backgroundColor = '#e0eaff'; /*grey*/
+			document.getElementById('c2').style.backgroundColor = '#e0eaff';
+			document.getElementById('c2').style.color = 'black';
+			document.getElementById('title1').style.fontWeight = "700";
+			document.getElementById('title2').style.fontWeight = "500";
+			openInfo("Client");
+			count = 1;
+	  }
+	}
+	else{
 		document.getElementById('c1').style.backgroundColor = '#e0a722';
 		document.getElementById('line1').style.backgroundColor = '#e0eaff';
 		document.getElementById('line2').style.backgroundColor = '#e0eaff'; /*grey*/
@@ -141,7 +154,7 @@ function backProfile() {
 		document.getElementById('title1').style.fontWeight = "700";
 		document.getElementById('title2').style.fontWeight = "500";
 		openInfo("Client");
-  }
+	}
 
 }
 
