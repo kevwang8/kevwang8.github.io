@@ -45,7 +45,7 @@ function populateListProductChoices(slct2) {
 		var productName = optionArray[i].name;
 
 		let li = document.createElement("li");
-
+		
 		var image = document.createElement("img");
 		//image.class = "image";
 		image.src = optionArray[i].image;
@@ -61,7 +61,6 @@ function populateListProductChoices(slct2) {
 		price.appendChild(document.createTextNode("$"+optionArray[i].price.toString()));
 		li.appendChild(price);
 
-		li.appendChild(document.createElement("br"));
 		// create the checkbox and add in HTML DOM
 		var checkbox = document.createElement("input");
 		checkbox.type = "checkbox";

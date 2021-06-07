@@ -12,7 +12,7 @@ var products = [
   image: "assets/broccoli.png"
 },
 {
-  name: "White bread",
+  name: "White Bread",
   lactoseFree: true,
   nutFree: true,
   organic: false,

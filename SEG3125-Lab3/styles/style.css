@@ -210,6 +210,11 @@ ul#menu {
   padding: 0;
 }
 
+.productsPage p {
+  font-size: 18px;
+}
+
+
 img {
   width: 150px;
   height: 150px;
