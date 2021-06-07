@@ -2,6 +2,8 @@
 // This function is called when any of the tab is clicked
 // It is adapted from https://www.w3schools.com/howto/howto_js_tabs.asp
 
+openInfo("Client");
+
 function openInfo(tabName) {
 
 	// Get all elements with class="tabcontent" and hide them
@@ -15,7 +17,7 @@ function openInfo(tabName) {
 
 }
 
-document.getElementById("defaultOpen").click();
+//document.getElementById("defaultOpen").click();
 
 // generate a checkbox list from a list of products
 // it makes each product name as the label for the checkbos
@@ -45,7 +47,7 @@ function populateListProductChoices(slct2) {
 		var productName = optionArray[i].name;
 
 		let li = document.createElement("li");
-		
+
 		var image = document.createElement("img");
 		//image.class = "image";
 		image.src = optionArray[i].image;
@@ -130,13 +132,17 @@ function nextProducts() {
 }
 
 function backProfile() {
-	document.getElementById('c1').style.backgroundColor = '#e0a722';
-	document.getElementById('line1').style.backgroundColor = '#e0eaff';
-	document.getElementById('line2').style.backgroundColor = '#e0eaff'; /*grey*/
-	document.getElementById('c2').style.backgroundColor = '#e0eaff';
-	document.getElementById('c2').style.color = 'black';
-	document.getElementById('title1').style.fontWeight = "700";
-	document.getElementById('title2').style.fontWeight = "500";
+  if (confirm("Your product selections and cart will be cleared!")) {
+		document.getElementById('c1').style.backgroundColor = '#e0a722';
+		document.getElementById('line1').style.backgroundColor = '#e0eaff';
+		document.getElementById('line2').style.backgroundColor = '#e0eaff'; /*grey*/
+		document.getElementById('c2').style.backgroundColor = '#e0eaff';
+		document.getElementById('c2').style.color = 'black';
+		document.getElementById('title1').style.fontWeight = "700";
+		document.getElementById('title2').style.fontWeight = "500";
+		openInfo("Client");
+  }
+
 }
 
 function nextCart() {
