@@ -122,7 +122,7 @@ function uncheckAll() {
 function nextProducts() {
 	document.getElementById('c1').style.backgroundColor = '#0ba800'; /*green*/
 	document.getElementById('line1').style.backgroundColor = '#0ba800';
-	document.getElementById('line2').style.backgroundColor = '#e0a722'; /*orange*/
+	document.getElementById('line2').style.backgroundColor = '#e0eaff'; /*orange*/
 	document.getElementById('c2').style.backgroundColor = '#e0a722';
 	document.getElementById('c2').style.color = 'white';
 	document.getElementById('title1').style.fontWeight = "500";
@@ -132,7 +132,7 @@ function nextProducts() {
 
 function backProfile() {
 	document.getElementById('c1').style.backgroundColor = '#e0a722';
-	document.getElementById('line1').style.backgroundColor = '#e0a722';
+	document.getElementById('line1').style.backgroundColor = '#e0eaff';
 	document.getElementById('line2').style.backgroundColor = '#e0eaff'; /*grey*/
 	document.getElementById('c2').style.backgroundColor = '#e0eaff';
 	document.getElementById('c2').style.color = 'black';
@@ -151,7 +151,7 @@ function nextCart() {
 
 function backProducts() {
 	document.getElementById('c2').style.backgroundColor = '#e0a722';
-	document.getElementById('line2').style.backgroundColor = '#e0a722';
+	document.getElementById('line2').style.backgroundColor = '#e0eaff';
 	document.getElementById('c3').style.backgroundColor = '#e0eaff';
 	document.getElementById('c3').style.color = 'black';
 	document.getElementById('title2').style.fontWeight = "700";
