@@ -160,4 +160,5 @@ function backProducts() {
 
 function popup() {
   alert("Your Order Has Been Placed!");
+	document.getElementById('c3').style.backgroundColor = '#0ba800';
 }
