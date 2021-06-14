@@ -1,0 +1,94 @@
+
+.backgroundPic {
+  background-image: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("../images/animals.jpg");
+  bac
+  background-color: #cccccc;
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+h1 {
+  color: #59805b
+}
+h3 {
+  color: #59805b;
+  font-size: 20px;
+}
+
+.button {
+  background-color: #e3781b;
+  border: none;
+ color: white;
+ padding: 7px 20px;
+ text-align: center;
+ border-radius: 25px;
+ text-decoration: none;
+ display: inline-block;
+  transition: all .25s ease;
+}
+
+.button:hover{
+  background-color: #cf6000;
+  color: white;
+  cursor: pointer;
+}
+
+.pictext {
+  text-align: left;
+  position: absolute;
+  top: 50%;
+  left: 33%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+.pictext p {
+  font-weight: bold;
+}
+
+.servicesText button {
+  font-size: 20px;
+}
+
+td{
+    font-size: 25px;
+}
+p{
+    font-size: 20px;
+}
+
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:50%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+/*Style the footer */
+footer {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#contact p {
+  margin: 0;
+}
+
+.cardHover:hover {
+  transition-duration: 0.5s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cardHover {
+  transition-duration: 0.5s;
+}
