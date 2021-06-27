@@ -211,21 +211,25 @@ $(document).ready(function(){
 
     $("#fname").on("focusout", function(){
         if (validateTextField("fname")){
+            $("#fname").removeClass("error");
             $("#fname").addClass("correct");
         }
     });
     $("#lname").on("focusout", function(){
         if (validateTextField("lname")){
+          $("#lname").removeClass("error");
             $("#lname").addClass("correct");
         }
     });
     $("#email").on("focusout", function(){
         if (validateTextField("email")){
+            $("#email").removeClass("error");
             $("#email").addClass("correct");
         }
     });
     $("#creditName").on("focusout", function(){
         if (validateTextField("creditName")){
+            $("#creditName").removeClass("error");
             $("#creditName").addClass("correct");
         }
     });
@@ -233,6 +237,13 @@ $(document).ready(function(){
     $("#bookBtn").click(function(){
       if(validateAll()) {
         $("#bookedModal").modal("show");
+        $("#phone").removeClass("correct");
+        $("#creditNum").removeClass("correct");
+        $("#cvv").removeClass("correct");
+        $("#fname").removeClass("correct");
+        $("#lname").removeClass("correct");
+        $("#email").removeClass("correct");
+        $("#creditName").removeClass("correct");
       }
       else {
         alert("Please Enter all Fields in Correct Format");
