@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!-- Here is a link to the code the documents this code is based on
+https://getbootstrap.com/docs/5.0/getting-started/introduction/
+This will help you get started with your code!
+-->
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- JQuery -->
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/south-street/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="scripts/service.js"></script>
+
+    <link href="styles/styles.css" rel="stylesheet" type="text/css">
+    <title>Billy-Joe Veterinary Clinic</title>
+</head>
+<body>
+<!--
+I store all of the page information in a container,
+Many websites will use what is called CSS grid layouts, where you will have a header, body, footer and both sides used for ads or other information
+-->
+<div class = "container-lg">
+
+    <!--
+    Most websites now feature what is called a NavBar.
+    The example I give is quite simple with a logo and some text, but you can use it for many navigational patterns
+    https://getbootstrap.com/docs/5.0/components/navbar/
+    -->
+    <div class="navStyle sticky-top">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+          <h1 style="font-size: 30px"><a onclick="topFunction()" style="cursor: pointer"><img src="images/logo.jpg" width="55" height="35"></a> Billy-Joe Veterinary Clinic</h1>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav navbar-right">
+              <li class="nav-item" style="margin-left: 10px">
+                <a class="nav-link itemHover" href="#services" >Services</a>
+              </li>
+              <li class="nav-item" style="margin-left: 5px">
+                <a class="nav-link" href="#book" >Booking</a>
+              </li>
+              <li class="nav-item" style="margin-left: 5px">
+                <a class="nav-link" href="#meet" >Staff</a>
+              </li>
+              <li class="nav-item" style="margin-left: 5px">
+                <a class="nav-link" href="#contactus" >Vist/Contact Us</a>
+              </li>
+              <li class="nav-item" style="margin-left: 5px">
+                <a class="nav-link" href="#hours">Hours</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+    <div class=" border backgroundPic">
+      <div class="pictext">
+        <h1 style="color: #80ad83"> Welcome to <br>Billy-Joe Veterinary Clinic</h1>
+        <div class=" my-3" style="color: #f7f7f7">
+          <h2  style="font-size: 25px">We are a small clinic located in downtown Ottawa</h2>
+          <h2 style="font-size: 25px">We ensure the <strong>best</strong> care for our customers</p>
+        </div>
+        <a href="#book" class=" my-2 button">Book an Appointment</a>
+      </div>
+    </div>
+
+
+    <!-- Alerts are an easy way to grab the users attention, this page goes into more detail
+    https://getbootstrap.com/docs/5.0/components/alerts/
+    -->
+    <div class="my-4 alert alert-warning alert-dismissible fade show" role="alert">
+        <img src="images/icons8-box-important-50.png" width="25" height="25" style="margin-right: 5px">Currently, we are <strong>only</strong> servicing care for <strong>Cat</strong> and <strong>Dog</strong> breeds. More to come soon!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <h1 class="my-3" style="color: #59805b;" id="services"><img src="images/icons8-shortlist-50.png" alt="" width="40" height="40" style="margin-right: 8px">Services We Offer</h1>
+    <!--
+    Tables are one of many ways to organize information easily.
+    It is a good way to list of prices, or services in a business website
+    https://getbootstrap.com/docs/5.0/content/tables/
+    -->
+    <div class="accordion accordion-flush my-4 servicesText" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed serviceButton" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Surgery
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><h3>$500-$750</h3>We offer proffesional surgical procedures at the best facilities using the most reliable equipment </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed serviceButton" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Preventative Care
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><h3>$50</h3>We provide a thorough examination of your pets well-being</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed serviceButton" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    Dentistry Care
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><h3>$100</h3>We are providing quick and thorough dental exams to keep your pets oral hygiene is the best condition</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingFour">
+                <button class="accordion-button collapsed serviceButton" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Nutritional Consultation
+                </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><h3>$25</h3>We will help make sure you make all the right choices to meet your pets nutritional needs</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingFive">
+                <button class="accordion-button collapsed serviceButton" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    Behavior
+                </button>
+            </h2>
+            <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><h3>$25</h3>Our highly experienced team of Veterinarians will determine and suggest the most successful way to treat your pets unsual behavior</div>
+            </div>
+        </div>
+    </div>
+    <h1></h1>
+
+    <!--
+    https://getbootstrap.com/docs/4.3/components/forms/
+    https://v4-alpha.getbootstrap.com/components/forms/
+    -->
+    <h1 id="book"><img src="images/icons8-edit-calendar-50.png" alt="" width="40" height="40" style="margin-right: 8px">Book An Appointment</h1>
+
+    <div class="container">
+
+  <form class="form-horizontal">
+    <div class="form-group my-4">
+      <label class="control-label col-sm-2" for="fname">First Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
+      </div>
+    </div>
+    <div class="form-group my-3">
+      <label class="control-label col-sm-2" for="lname">Last Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
+      </div>
+    </div>
+    <div class="form-group my-3">
+      <label class="control-label col-sm-2" for="email">Email:</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" placeholder="customer@example.ca" name="email">
+      </div>
+    </div>
+    <div class="form-group my-3">
+      <label class="control-label col-sm-2" for="phone">Phone Number:</label>
+      <div class="col-sm-3">
+        <input type="tel" class="form-control" id="phone" placeholder="(###)-###-####" name="phone">
+      </div>
+    </div>
+    <div class="form-group my-3">
+      <label class="control-label col-sm-2" for="petSelect">Your Pet:</label>
+      <div class="col-sm-3">
+        <select class="form-control" id="petSelect">
+          <option>-Select your pet-</option>
+          <option>Dog</option>
+          <option>Cat</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group my-3">
+      <label class="control-label col-sm-2" for="exampleSelect1">Service:</label>
+      <div class="col-sm-3">
+        <select class="form-control" id="serviceSelect">
+          <option>-Select a Service-</option>
+          <option>Surgery</option>
+          <option>Preventative Care</option>
+          <option>Dentistry Care</option>
+          <option>Nutritional Consultation</option>
+          <option>Behavior</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group my-3">
+      <label class="control-label col-sm-2" for="doctorSelect">Preferred Veterinarian:</label>
+      <div class="col-sm-3">
+        <select class="form-control" id="doctorSelect">
+          <option value="defualt">-Select an Expert-</option>
+          <option value="Beth">Dr. Beth Wright</option>
+          <option value="John">Dr. John McKenzie</option>
+          <option value="Allen">Dr. Allen Greenwood</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group my-3">
+      <label for="dateInput" class="control-label col-sm-2">Date<img title="Some days are unavailable based on your selected Expert" id="dateToolTip" src="images/icons8-help-50.png" width="15" height="15" style="margin-left: 3px"></label>
+      <div class="col-3">
+        <input class="form-control" type="text" placeholder="YYYY-MM-DD" id="dateInput">
+      </div>
+    </div>
+    <div class="form-group my-3">
+      <label for="timeInput" class="control-label col-sm-2">Time</label>
+      <div class="col-3">
+        <input class="form-control" type="time"  id="timeInput">
+      </div>
+    </div>
+    <div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button serviceButton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <img src="images/icons8-card-payment-50.png" width="28" height="28" style="margin-right: 10px">Payment Information<img id="credit" title="$20.00 will be charged from your card in the case of cancellation within 12 hours of the appointment." src="images/icons8-help-50.png" width="17" height="17" style="margin-left: 4px">
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="padding">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Credit Card</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="creditName">Name</label>
+                                        <input class="form-control" id="creditName" type="text" placeholder="Enter the name on card" id="creditName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 my-3">
+                                    <div class="form-group">
+                                        <label for="creditNum">Credit Card Number</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" placeholder="0000 0000 0000 0000" autocomplete="email" id="creditNum">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <img src="images/icons8-credit-card-30.png" alt="credit card icon" width="25" height="25">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-4 my-1">
+                                    <label for="ccmonth">Expiration Month</label>
+                                    <select class="form-control" id="ccmonth">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="ccyear">Expiration Year</label>
+                                    <select class="form-control" id="ccyear">
+                                        <option>2021</option>
+                                        <option>2022</option>
+                                        <option>2023</option>
+                                        <option>2024</option>
+                                        <option>2025</option>
+                                        <option>2026</option>
+                                        <option>2027</option>\
+                                        <option>2028</option>
+                                        <option>2029</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="cvv">CVV/CVC</label>
+                                        <input class="form-control" id="cvv" type="text" placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <div class="form-group my-3">
+      <div class="col-sm-offset-2 col-sm-10">
+        <!-- Button trigger modal
+        We use the same button code from above, but now we can trigger a modal to appear.
+        The bootstrap tutorial includes many different types of modals that you can explore
+        https://getbootstrap.com/docs/5.0/components/modal/
+        -->
+        <button type="button" class="button" data-bs-toggle="modal" id="bookBtn">
+            Submit Booking
+        </button>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="bookedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Booked!</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      Thank you for booking an appointment with Billy-Joe's! We will email you a confirmation shortly.
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="button" data-bs-dismiss="modal">Okay</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+    <!-- Cards are quite useful when building a website. They are a useful way to organize information.
+    They can be organized using a CSS grid or other layout options.
+    https://getbootstrap.com/docs/5.0/components/card/
+    -->
+
+    <h1 id="meet" class="my-5"><img src="images/icons8-stethoscope-50.png" alt="" width="40" height="40" style="margin-right: 8px">Meet Our Veterinarians</h1>
+    <div class="row justify-content-around my-5">
+        <div class="card cardHover" style="width: 19rem; ">
+            <img src="images/doctor1.jpg" class="card-img-top" alt="Doctor"  style="height: 17rem">
+            <div class="card-body">
+                <p class="card-text"><h3>Dr. Beth Wright</h3>Dr. Beth Wright recieved her bachelor's degree in veterinary science from the university of Toronto.
+                  Beth has recieved top-level training in surgery and now she is our surgery specialist.</p><strong>Available: Monday - Thursday</strong>
+            </div>
+        </div>
+        <div class="card cardHover" style="width: 19rem;">
+            <img src="images/doctor2.jpg" class="card-img-top" alt="Doctor" style="height: 17rem">
+            <div class="card-body">
+                <p class="card-text"><h3>Dr. John McKenzie</h3>Dr. John McKenzie recieved his veterinary degree from the university of Washington. Dr Mckenzie is
+                  our emergency veterinarian and also has a large interest in internal medicine.</p><strong>Available: Wednesday - Friday</strong>
+            </div>
+        </div>
+        <div class="card cardHover" style="width: 19rem;">
+            <img src="images/doctor3.jpg" class="card-img-top" alt="Doctor" style="height: 17rem">
+            <div class="card-body">
+                <p class="card-text"><h3>Dr. Allen Greenwood</h3>Dr. Allen Greenwood grew up in Vancouver, Canada and moved to Ottawa to study veterinary
+                  science and dentistry at the University of Ottawa. After graduation, he came full-time with the team here and now, he is our dentistry specialist</p>
+                  <strong>Available: Monday - Wednesday</strong>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Alerts are an easy way to grab the users attention, this page goes into more detail
+    https://getbootstrap.com/docs/5.0/components/alerts/
+    -->
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <img src="images/icons8-error-16.png" alt="" width="22" height="22"> Due to COVID-19 regulations, we have shortened our open hours
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!--https://getbootstrap.com/docs/5.0/components/card/-->
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card" style="border: none;">
+          <div class="card-body">
+            <h1 id="contactus" class="mb-3"><img src="images/icons8-address-50.png" alt="" width="40" height="40" style="margin-right: 8px">Visit/Contact Us</h1>
+            <div id="contact">
+              <p>161 Louis-Pasteur Private</p>
+              <p>Ottawa, ON</p>
+              <p>K1N 6N5</p>
+            </div>
+            <br>
+            <p><b>Email:</b> billyjoeclinic@gmail.ca</p>
+            <p><b>Phone:</b> (123)-456-7890</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card" style="border: none;">
+          <div class="card-body">
+            <h1  id="hours" class="mb-3"><img src="images/icons8-clock-50.png" alt="" width="40" height="40" style="margin-right: 8px">Hours</h1>
+            <p><b>Monday:</b> 9:00AM - 5:00PM</p>
+            <p><b>Tuesday:</b> 9:00AM - 5:00PM</p>
+            <p><b>Wednesday:</b> 9:00AM - 5:00PM</p>
+            <p><b>Thursday:</b> 9:00AM - 5:00PM</p>
+            <p><b>Friday:</b> 9:00AM - 5:00PM</p>
+            <p><b>Saturday:</b> CLOSED</p>
+            <p><b>Sunday:</b> CLOSED</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <!--https://www.codeply.com/go/kenARNnm7o/bootstrap-4-responsive-google-map-->
+      <div class="container-fluid">
+      <div class="map-responsive">
+        <iframe  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Uottawa+Colonel+by+Hall" width="800" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </div>
+      </div>
+
+
+      <div class="my-4">
+       <footer class="pt-2" style="border-top: 1px solid"><i>Site Designed by Billy Joe</i></footer>
+      </div>
+
+</div>
+<script>
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+</script>
+<!-- here we input our javascript helper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+<!-- https://media.istockphoto.com/photos/black-puppy-eating-on-deck-picture-id656025800?k=6&m=656025800&s=170667a&w=0&h=Mq_12Oc2P2IB-tWf5kuBc9nXqYcGqOeGmz-WXP-gfBE=
+https://i.pinimg.com/170x/ca/4a/f2/ca4af20b57850bdc75c69d7da3a1fc25.jpg
+https://oldtowncrier.files.wordpress.com/2018/06/pointsonpets_stock.jpg
+https://images.squarespace-cdn.com/content/v1/539fa94de4b03f568ef60d63/1520957182693-3LJ9YWH8Y83HCPDN2KNL/ke17ZwdGBToddI8pDm48kP06O0_IHyRXSOOiqwgWaApZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVEHLRkg2cosQUGLeQ33UzXdgIxPDaVwE3LlEpL74qP4JVW4jCyXLPvvdR287iymYt8/dog+compulsive+disorder+%281%29.jpg
+https://now.tufts.edu/sites/default/files/190515_cindy_vet_lg.jpg
+https://www.canadianveterinarians.net/pdf/cvj/cvj_vol58_no08.pdf
+
+Lab6
+https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
+https://bbbootstrap.com/snippets/simple-payment-credit-card-form-41641728
+https://getbootstrap.com/docs/5.0/components/navbar/
+https://icons8.com/icon/set/payment/ios--green
+-->
