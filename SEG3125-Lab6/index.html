@@ -152,7 +152,7 @@ Many websites will use what is called CSS grid layouts, where you will have a he
 
     <div class="container">
 
-  <form class="form-horizontal">
+  <form autocomplete="off" class="form-horizontal">
     <div class="form-group my-4">
       <label class="control-label col-sm-2" for="fname">First Name:</label>
       <div class="col-sm-10">
@@ -174,9 +174,10 @@ Many websites will use what is called CSS grid layouts, where you will have a he
     <div class="form-group my-3">
       <label class="control-label col-sm-2" for="phone">Phone Number:</label>
       <div class="col-sm-3">
-        <input type="tel" class="form-control" id="phone" placeholder="(###)-###-####" name="phone">
+        <input autocomplete="false" name="hidden" type="text" class="form-control" id="phone" placeholder="(###)-###-####">
       </div>
     </div>
+
     <div class="form-group my-3">
       <label class="control-label col-sm-2" for="petSelect">Your Pet:</label>
       <div class="col-sm-3">
@@ -254,7 +255,7 @@ Many websites will use what is called CSS grid layouts, where you will have a he
                                     <div class="form-group">
                                         <label for="creditNum">Credit Card Number</label>
                                         <div class="input-group">
-                                            <input class="form-control" type="text" placeholder="0000 0000 0000 0000" autocomplete="email" id="creditNum">
+                                            <input class="form-control" type="text" placeholder="0000 0000 0000 0000" id="creditNum">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
                                                     <img src="images/icons8-credit-card-30.png" alt="credit card icon" width="25" height="25">
