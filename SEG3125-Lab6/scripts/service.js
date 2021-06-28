@@ -138,6 +138,17 @@ function disableDates(date) {
     }
 }
 
+function errorMessagePhone() {
+  document.getElementById('phone_error').textContent = "Phone Number must be in (###)-###-#### format";
+}
+
+function errorMessageCredit() {
+  document.getElementById('card_error').textContent = "Credit Card Number must be in #### #### #### #### format";
+}
+
+function errorMessageCVV() {
+  document.getElementById('cvv_error').textContent = "CVV must be in ### format";
+}
 
 // HERE, JQuery "LISTENING" starts
 $(document).ready(function(){
@@ -175,37 +186,52 @@ $(document).ready(function(){
     $("#phone").on("focusout", function(){
 
         if (!validatePhone("phone")){
-            alert("Phone Number must be in (###)-###-#### format");
+            //alert("Phone Number must be in (###)-###-#### format");
+            errorMessagePhone();
+            $("#phone_error").css('color', 'red');
+            $("#phone_error").css('font-size', '13.5px');
+            $("#phone_error").show();
             $("#phone").addClass("error");
             $("#phone").removeClass("correct");
         }
         else {
             $("#phone").removeClass("error");
             $("#phone").addClass("correct");
+            $("#phone_error").hide();
         }
     });
 
     $("#creditNum").on("focusout", function(){
         if (!validateCredit("creditNum")){
-            alert("Wrong format for credit card number Must be in #### #### #### #### format");
+            //alert("Wrong format for credit card number Must be in #### #### #### #### format");
+            errorMessageCredit();
+            $("#card_error").css('color', 'red');
+            $("#card_error").css('font-size', '13.5px');
+            $("#card_error").show();
             $("#creditNum").addClass("error");
             $("#creditNum").removeClass("correct");
         }
         else {
             $("#creditNum").removeClass("error");
             $("#creditNum").addClass("correct");
+            $("#card_error").hide();
         }
     });
 
     $("#cvv").on("focusout", function(){
         if (!validateCVV("cvv")){
-            alert("Wrong format for CVV Must be in ### format");
+            //alert("Wrong format for CVV Must be in ### format");
+            errorMessageCVV();
+            $("#cvv_error").css('color', 'red');
+            $("#cvv_error").css('font-size', '13.5px');
+            $("#cvv_error").show();
             $("#cvv").addClass("error");
             $("#cvv").removeClass("correct");
         }
         else {
             $("#cvv").removeClass("error");
             $("#cvv").addClass("correct");
+            $("#cvv_error").hide();
         }
     });
 
@@ -246,7 +272,8 @@ $(document).ready(function(){
         $("#creditName").removeClass("correct");
       }
       else {
-        alert("Please Enter all Fields in Correct Format");
+        //alert("Please Enter all Fields in Correct Format!");
+        $("#errorModal").modal("show");
       }
     });
 

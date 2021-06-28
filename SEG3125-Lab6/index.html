@@ -176,6 +176,7 @@ Many websites will use what is called CSS grid layouts, where you will have a he
       <div class="col-sm-3">
         <input autocomplete="off" name="hidden" type="text" class="form-control" id="phone" placeholder="(###)-###-####">
       </div>
+      <span><p id="phone_error"></p></span>
     </div>
 
     <div class="form-group my-3">
@@ -262,10 +263,17 @@ Many websites will use what is called CSS grid layouts, where you will have a he
                                                 </span>
                                             </div>
                                         </div>
+                                        <span><p id="card_error"></p></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
+                              <div class="col-sm-4">
+                                  <div class="form-group">
+                                      <label for="cvv">CVV/CVC</label>
+                                      <input class="form-control" id="cvv" type="text" placeholder="123">
+                                  </div>
+                              </div>
                                 <div class="form-group col-sm-4 my-1">
                                     <label for="ccmonth">Expiration Month</label>
                                     <select class="form-control" id="ccmonth">
@@ -297,12 +305,8 @@ Many websites will use what is called CSS grid layouts, where you will have a he
                                         <option>2029</option>
                                     </select>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="cvv">CVV/CVC</label>
-                                        <input class="form-control" id="cvv" type="text" placeholder="123">
-                                    </div>
-                                </div>
+
+                                <span><p id="cvv_error"></p></span>
                             </div>
                         </div>
                     </div>
@@ -331,7 +335,7 @@ Many websites will use what is called CSS grid layouts, where you will have a he
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Booked!</h5>
+                      <h5 class="modal-title" style="color: #59805b" id="exampleModalLabel"><img src="images/icons8-ok-50.png" alt="" width="30" height="30" style="margin-right: 5px">Successfully Booked!</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -339,6 +343,23 @@ Many websites will use what is called CSS grid layouts, where you will have a he
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="button" data-bs-dismiss="modal">Okay</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" style="color: #e0221b" id="exampleModalLabel"><img src="images/icons8-error-50.png" alt="" width="30" height="30" style="margin-right: 5px">Field Input Error!</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      Please ensure you have filled out all the required fields in correct format!
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="button" data-bs-dismiss="modal" style="">Okay</button>
                   </div>
               </div>
           </div>
