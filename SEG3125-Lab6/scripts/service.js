@@ -40,6 +40,17 @@ function validateCVV(cvv) {
     }
 }
 
+function validateExpert(expert) {
+  var a = document.getElementById(expert).value;
+
+  if (a.localeCompare("default") === 0){
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
 // Function to verify that the text fields are not empty
 function validateTextField(id) {
   var a = document.getElementById(id).value;
@@ -89,6 +100,15 @@ function validateAll() {
 
   var element = document.getElementById("phone");
   if (validatePhone("phone")){
+    element.classList.add("correct");
+  }
+  else{
+    element.classList.add("error");
+    flag = false;
+  }
+
+  var element = document.getElementById("doctorSelect");
+  if (validateExpert("doctorSelect")){
     element.classList.add("correct");
   }
   else{
@@ -148,6 +168,20 @@ function errorMessageCredit() {
 
 function errorMessageCVV() {
   document.getElementById('cvv_error').textContent = "CVV must be in ### format";
+}
+
+function errorMessageExpert() {
+  document.getElementById('expert_error').textContent = "Please select an expert";
+}
+
+function errorMessageBlanks(id) {
+  document.getElementById(id).textContent = "Please enter an input";
+}
+
+function successModal(date){
+  var sel = document.getElementById("doctorSelect");
+  var text = sel.options[sel.selectedIndex].text;
+  document.getElementById('bookSuccess').textContent = "Your appointment has been booked for "+date+" with "+text+". We will email you a confirmation shortly. Thank you!";
 }
 
 // HERE, JQuery "LISTENING" starts
@@ -239,31 +273,87 @@ $(document).ready(function(){
         if (validateTextField("fname")){
             $("#fname").removeClass("error");
             $("#fname").addClass("correct");
+            $("#fname_error").hide();
+        }
+        else {
+          $("#fname").removeClass("correct");
+          $("#fname").addClass("error");
+          errorMessageBlanks("fname_error");
+          $("#fname_error").css('color', 'red');
+          $("#fname_error").css('font-size', '13.5px');
+          $("#fname_error").show();
         }
     });
     $("#lname").on("focusout", function(){
         if (validateTextField("lname")){
           $("#lname").removeClass("error");
             $("#lname").addClass("correct");
+            $("#lname_error").hide();
+        }
+        else {
+          $("#lname").removeClass("correct");
+          $("#lname").addClass("error");
+          errorMessageBlanks("lname_error");
+          $("#lname_error").css('color', 'red');
+          $("#lname_error").css('font-size', '13.5px');
+          $("#lname_error").show();
         }
     });
     $("#email").on("focusout", function(){
         if (validateTextField("email")){
             $("#email").removeClass("error");
             $("#email").addClass("correct");
+            $("#email_error").hide();
+        }
+        else {
+          $("#email").removeClass("correct");
+          $("#email").addClass("error");
+          errorMessageBlanks("email_error");
+          $("#email_error").css('color', 'red');
+          $("#email_error").css('font-size', '13.5px');
+          $("#email_error").show();
+        }
+    });
+    $("#doctorSelect").on("focusout", function(){
+        if (validateExpert("doctorSelect")){
+            $("#doctorSelect").removeClass("error");
+            $("#doctorSelect").addClass("correct");
+            $("#expert_error").hide();
+        }
+        else {
+          $("#doctorSelect").removeClass("correct");
+          $("#doctorSelect").addClass("error");
+          errorMessageExpert();
+          $("#expert_error").css('color', 'red');
+          $("#expert_error").css('font-size', '13.5px');
+          $("#expert_error").show();
         }
     });
     $("#creditName").on("focusout", function(){
         if (validateTextField("creditName")){
             $("#creditName").removeClass("error");
             $("#creditName").addClass("correct");
+            $("#cname_error").hide();
+        }
+        else {
+          $("#creditName").removeClass("correct");
+          $("#creditName").addClass("error");
+          errorMessageBlanks("cname_error");
+          $("#cname_error").css('color', 'red');
+          $("#cname_error").css('font-size', '13.5px');
+          $("#cname_error").show();
         }
     });
 
     $("#bookBtn").click(function(){
       if(validateAll()) {
+        var date = $("#dateInput").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
+
+        successModal(date);
         $("#bookedModal").modal("show");
+
         $("#phone").removeClass("correct");
+        $("#doctorSelect").removeClass("correct");
         $("#creditNum").removeClass("correct");
         $("#cvv").removeClass("correct");
         $("#fname").removeClass("correct");
