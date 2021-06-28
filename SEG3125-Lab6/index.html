@@ -152,7 +152,7 @@ Many websites will use what is called CSS grid layouts, where you will have a he
 
     <div class="container">
 
-  <form autocomplete="off" class="form-horizontal">
+  <form class="form-horizontal">
     <div class="form-group my-4">
       <label class="control-label col-sm-2" for="fname">First Name:</label>
       <div class="col-sm-10">
@@ -174,7 +174,7 @@ Many websites will use what is called CSS grid layouts, where you will have a he
     <div class="form-group my-3">
       <label class="control-label col-sm-2" for="phone">Phone Number:</label>
       <div class="col-sm-3">
-        <input autocomplete="off" name="hidden" type="text" class="form-control" id="phone" placeholder="(###)-###-####">
+        <input name="phone" type="text" class="form-control" id="phone" placeholder="(###)-###-####">
       </div>
       <span><p id="phone_error"></p></span>
     </div>
@@ -325,7 +325,7 @@ Many websites will use what is called CSS grid layouts, where you will have a he
         The bootstrap tutorial includes many different types of modals that you can explore
         https://getbootstrap.com/docs/5.0/components/modal/
         -->
-        <button type="button" class="button" data-bs-toggle="modal" id="bookBtn">
+        <button type="button" class="button" id="bookBtn">
             Submit Booking
         </button>
       </div>
@@ -348,11 +348,11 @@ Many websites will use what is called CSS grid layouts, where you will have a he
           </div>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" style="color: #e0221b" id="exampleModalLabel"><img src="images/icons8-error-50.png" alt="" width="30" height="30" style="margin-right: 5px">Field Input Error!</h5>
+                      <h5 class="modal-title" style="color: #e0221b" id="exampleModalLabel2"><img src="images/icons8-error-50.png" alt="" width="30" height="30" style="margin-right: 5px">Field Input Error!</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
