@@ -1,0 +1,101 @@
+
+.colour-nav {
+  background-color: #244f82;
+  height: 65px;
+}
+
+.button {
+  background-color: #e68a00;
+  text-decoration: none;
+  border: none;
+ color: white;
+ padding: 7px 20px;
+ text-align: center;
+ border-radius: 5px;
+ display: inline-block;
+ transition: all .25s ease;
+}
+
+.spacing {
+  margin-left: 20px;
+}
+
+.modalButtons {
+  text-align: right;
+}
+
+
+.button:hover{
+  background-color: #59805b;
+  text-decoration: none;
+  transition: all .25s ease;
+  color: white;
+  cursor: pointer;
+}
+
+.pageMargin {
+  margin-top: 25px;
+  margin-left: 12%;
+  margin-right: 12%;
+}
+
+.image {
+  float: left;
+  height: 500px;
+  width:50%;
+}
+
+.homePara {
+  width:48%;
+  margin-right: 2%;
+  float: left;
+}
+
+.clearfix{
+  clear:both
+}
+
+.lang {
+  padding-top: 10px;
+}
+
+.card {
+  margin-right: 5%;
+  margin-left: 5%;
+  border-left: solid 1px black;
+}
+
+.footer {
+ position: fixed;
+  background-color: #142b52;
+   bottom: 0;
+  width: 100%;
+}
+
+.footerText2 {
+  margin: 0;
+  padding-top: 15px;
+  color: white;
+  text-align: right;
+  float: left;
+  clear: none; 
+}
+
+.hover {
+  transition: 0.4s;
+}
+
+.hover:hover {
+  cursor: pointer;
+  background-color: #ffd9a1;
+  transition: 0.4s;
+}
+
+.sportPageMargin {
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+
+.register {
+  text-align: center;
+}
