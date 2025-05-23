@@ -1,3 +1,3 @@
 # kevwang8.github.io
 
-Workout Tracker Website Code using generative AI
+Workout Tracker website coded using generative AI
