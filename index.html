@@ -1,20 +1,595 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-	<!-- IMPORTANT to use a CSS file - external -->
-	<link href="style.css" rel="stylesheet" type="text/css">
-    <title>Questionnaire</title>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workout Tracker</title>
+  <style>
+    :root {
+      --background: #121622;
+      --main-box-bg: #1E2733;
+      --accent-orange: #FF7043;
+      --accent-light: #FFAB91;
+      --text-primary: #E0E0E0;
+      --text-secondary: #B0B0B0;
+      --border-color: #374151;
+      --button-hover: #FF5722;
+      --green: #66bb6a;
+    }
 
-  <body>
-      <div class="header">
-  	     <h1 class="title">SEG3125 Labs</h1>
-      </div>
-      <a href="https://kevwang8.github.io/SEG3125-Lab1/">Lab1</a><br><br>
-      <a href="https://kevwang8.github.io/SEG3125-Lab2/">Lab2</a><br><br>
-      <a href="https://kevwang8.github.io/SEG3125-Lab3/">Lab3</a><br><br>
-      <a href="https://kevwang8.github.io/SEG3125-Lab4/">Lab4</a><br><br>
-      <a href="https://kevwang8.github.io/SEG3125-Lab6/">Lab5/6</a>
-  </body>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--background);
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      color: var(--text-primary);
+    }
+
+    .container {
+      background: var(--main-box-bg);
+      max-width: 600px;
+      width: 100%;
+      padding: 10px 40px 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--accent-orange);
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: var(--accent-light);
+    }
+
+    input[type="date"], textarea {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid var(--border-color);
+      background: #2B3648;
+      color: var(--text-primary);
+      box-sizing: border-box;
+    }
+
+    input[type="date"]:focus, textarea:focus {
+      border-color: var(--accent-orange);
+      outline: none;
+      background: #37455D;
+    }
+
+    textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      background: var(--accent-orange);
+      border: none;
+      color: white;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 12px 25px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: var(--button-hover);
+    }
+
+    #buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .entry {
+      position: relative;
+      background: #1F2937;
+      border: 1px solid var(--border-color);
+      padding: 12px 45px 12px 14px;
+      margin-top: 10px;
+      border-radius: 10px;
+      color: var(--text-secondary);
+    }
+
+    .entry strong {
+      color: var(--text-primary);
+    }
+
+    .entry button.delete-btn {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: #90caf9;
+      border: none;
+      color: #0d47a1;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      line-height: 1;
+    }
+
+    .entry button.delete-btn:hover {
+      background: #f44336;
+      color: white;
+    }
+
+    .month-group {
+      margin-top: 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .month-header {
+      background: #37455D;
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--accent-light);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .month-header::after {
+      content: "▼";
+      transition: transform 0.3s ease;
+      font-size: 0.9rem;
+      color: var(--accent-orange);
+    }
+
+    .month-group.collapsed .month-header::after {
+      transform: rotate(-90deg);
+    }
+
+    .entries {
+      background: #2B3648;
+      padding: 12px 20px;
+      max-height: 1000px; /* Adjusted for potential content, can be more dynamic if needed */
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+    
+    .month-group.collapsed .entries {
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    /* This rule was causing issues with dynamic max-height for accordions when explicitly set.
+       It's better to let the browser calculate height or set a sufficiently large max-height.
+    .month-group:not(.collapsed) .entries {
+      max-height: none; 
+    }
+    */
+
+    /* Calendar Styles */
+    .calendar {
+      margin-bottom: 30px;
+    }
+
+    .calendar-day:hover {
+      background-color: #3B4A62;
+      cursor: pointer;
+      transform: scale(1.05);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--accent-light);
+      margin-bottom: 10px;
+    }
+
+    .calendar-header h2 {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .calendar-header button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      box-shadow: none; /* Overriding main button shadow for these small ones */
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .calendar-day, .calendar-label {
+      text-align: center;
+      padding: 10px;
+      border-radius: 6px;
+      background: #2B3648;
+      font-size: 0.9rem;
+    }
+
+    .calendar-label {
+      font-weight: bold;
+      color: var(--accent-light);
+      background: transparent;
+    }
+
+    .calendar-day.logged {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .calendar-day.today {
+      outline: 2px solid #42A5F5; /* Blue outline */
+      outline-offset: -2px;
+    }
+
+    .calendar-day.selected {
+      outline: 2px solid var(--accent-orange); /* Orange outline */
+      outline-offset: -2px;
+    }
+
+    /* Success message styles */
+    #success-message {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.5s ease, visibility 1.5s ease;
+      color: var(--green);
+      font-weight: 700;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    #success-message.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #success-message.instant-show {
+      transition: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Workout Tracker</h1>
+
+  <div class="calendar">
+    <div class="calendar-header">
+      <button id="prev-month" aria-label="Previous month">◀</button>
+      <h2 id="calendar-title">This Month</h2>
+      <button id="next-month" aria-label="Next month">▶</button>
+    </div>
+    <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+
+  <label for="workout-date">Date:</label>
+  <input type="date" id="workout-date" />
+
+  <label for="workout-text">Workout Details:</label>
+  <textarea id="workout-text" placeholder="E.g., Squats: 3 sets x 8-10 reps @ 100kg"></textarea>
+
+  <div id="buttons-container">
+    <button id="save-btn">Save Workout</button>
+    <button id="export-btn">Export Workouts</button>
+  </div>
+
+  <div id="success-message">Workout saved successfully!</div>
+
+  <h2>Workout Log</h2>
+  <div id="workout-log"></div>
+</div>
+
+<script>
+  const today = new Date();
+  let calendarMonth = today.getMonth();
+  let calendarYear = today.getFullYear();
+
+  document.getElementById("workout-date").value = today.toLocaleDateString('en-CA');
+
+  function showSuccessMessage() {
+    const msg = document.getElementById("success-message");
+    
+    msg.classList.add("instant-show");
+    msg.classList.add("show");
+    
+    requestAnimationFrame(() => {
+      msg.classList.remove("instant-show");
+    });
+    
+    setTimeout(() => {
+      msg.classList.remove("show");
+    }, 2000);
+  }
+
+  function saveWorkout() {
+    const date = document.getElementById("workout-date").value;
+    const text = document.getElementById("workout-text").value.trim();
+    if (!date || !text) {
+      alert("Please enter both a date and workout details.");
+      return;
+    }
+
+    const todayStr = new Date().toLocaleDateString('en-CA');
+    if (date > todayStr) {
+      alert("You can't log workouts for future dates.");
+      return;
+    }
+
+    localStorage.setItem("workout-" + date, text);
+    document.getElementById("workout-text").value = "";
+    loadLog();
+    renderCalendar(); 
+    // Ensure the newly saved date is marked as selected in the calendar if it's in the current view
+    updateCalendarSelectionHighlight(date); 
+    showSuccessMessage();
+  }
+
+  function deleteWorkout(date) {
+    localStorage.removeItem("workout-" + date);
+    loadLog();
+    renderCalendar();
+     // If the deleted date was selected, clear selection or select today/default
+    const currentDateInputVal = document.getElementById("workout-date").value;
+    if(currentDateInputVal === date) {
+        document.getElementById("workout-date").value = new Date().toLocaleDateString('en-CA');
+        document.getElementById("workout-text").value = "";
+        updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
+    }
+  }
+
+  function loadLog() {
+    const log = document.getElementById("workout-log");
+    log.innerHTML = "";
+    const entries = [];
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith("workout-")) {
+        entries.push({
+          date: key.replace("workout-", ""),
+          entry: localStorage.getItem(key)
+        });
+      }
+    });
+    entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const grouped = {};
+    entries.forEach(({ date, entry }) => {
+      const ym = date.slice(0, 7);
+      if (!grouped[ym]) grouped[ym] = [];
+      grouped[ym].push({ date, entry });
+    });
+
+    const currentYM = today.toLocaleDateString('en-CA').slice(0,7);
+
+    Object.keys(grouped)
+      .sort((a, b) => new Date(b + "-01") - new Date(a + "-01"))
+      .forEach(ym => {
+        const groupDiv = document.createElement("div");
+        groupDiv.classList.add("month-group");
+        if (ym !== currentYM) groupDiv.classList.add("collapsed");
+
+        const header = document.createElement("div");
+        header.classList.add("month-header");
+        const [year, month] = ym.split("-");
+        const displayDate = new Date(parseInt(year), parseInt(month) - 1);
+        header.textContent = displayDate.toLocaleString(undefined, { year: "numeric", month: "long" });
+        header.addEventListener("click", () => groupDiv.classList.toggle("collapsed"));
+
+        const entriesDiv = document.createElement("div");
+        entriesDiv.classList.add("entries");
+
+        const summary = document.createElement("div");
+        summary.textContent = `${grouped[ym].length} workout day(s) logged this month`;
+        summary.style.marginBottom = "10px";
+        summary.style.fontWeight = "bold";
+        summary.style.color = "#FFAB91";
+        entriesDiv.appendChild(summary);
+
+        grouped[ym].forEach(({ date, entry }) => {
+          const entryDiv = document.createElement("div");
+          entryDiv.classList.add("entry");
+
+          const strong = document.createElement("strong");
+          strong.textContent = date + ": ";
+
+          const textNode = document.createElement("div");
+          textNode.innerHTML = entry.replace(/\n/g, "<br>");
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.classList.add("delete-btn");
+          deleteBtn.textContent = "Delete";
+          deleteBtn.setAttribute('aria-label', `Delete workout for ${date}`); // ARIA label for delete button
+          deleteBtn.addEventListener("click", () => deleteWorkout(date));
+
+          entryDiv.appendChild(deleteBtn);
+          entryDiv.appendChild(strong);
+          entryDiv.appendChild(textNode);
+          entriesDiv.appendChild(entryDiv);
+        });
+
+        groupDiv.appendChild(header);
+        groupDiv.appendChild(entriesDiv);
+        log.appendChild(groupDiv);
+      });
+
+    // Display message if log is empty
+    if (Object.keys(grouped).length === 0) {
+        const emptyStateP = document.createElement("p");
+        emptyStateP.textContent = "No workouts logged yet. Add one using the form above!";
+        emptyStateP.style.textAlign = "center";
+        emptyStateP.style.marginTop = "20px";
+        emptyStateP.style.color = "var(--text-secondary)";
+        log.appendChild(emptyStateP);
+    }
+  }
+
+  function renderCalendar() {
+    const grid = document.getElementById("calendar-grid");
+    const title = document.getElementById("calendar-title");
+    grid.innerHTML = "";
+
+    const firstDay = new Date(calendarYear, calendarMonth, 1);
+    const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
+    const startDayOfWeek = firstDay.getDay(); // 0 (Sun) - 6 (Sat)
+    const totalDays = lastDay.getDate();
+
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    daysOfWeek.forEach(dow => {
+      const label = document.createElement("div");
+      label.classList.add("calendar-label");
+      label.textContent = dow;
+      grid.appendChild(label);
+    });
+
+    for(let i = 0; i < startDayOfWeek; i++) {
+      const blank = document.createElement("div");
+      blank.classList.add("calendar-day");
+      blank.style.background = "transparent";
+      blank.style.cursor = "default";
+      grid.appendChild(blank);
+    }
+
+    const currentlySelectedDate = document.getElementById("workout-date").value;
+
+    for(let day=1; day <= totalDays; day++) {
+      const dateStr = new Date(calendarYear, calendarMonth, day).toLocaleDateString('en-CA');
+      const dayDiv = document.createElement("div");
+      dayDiv.classList.add("calendar-day");
+      dayDiv.textContent = day;
+
+      if (localStorage.getItem("workout-" + dateStr)) {
+        dayDiv.classList.add("logged");
+      }
+      if (dateStr === new Date().toLocaleDateString('en-CA')) {
+        dayDiv.classList.add("today");
+      }
+      if (dateStr === currentlySelectedDate) {
+        dayDiv.classList.add("selected");
+      }
+
+      dayDiv.addEventListener("click", () => {
+        document.getElementById("workout-date").value = dateStr;
+        
+        const savedText = localStorage.getItem("workout-" + dateStr) || "";
+        document.getElementById("workout-text").value = savedText;
+        document.getElementById("workout-text").focus();
+
+        document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
+        dayDiv.classList.add("selected");
+      });
+      grid.appendChild(dayDiv);
+    }
+    title.textContent = firstDay.toLocaleString(undefined, { month: "long", year: "numeric" });
+  }
+
+  // New function to handle calendar selection based on date input
+  function handleDateInputChange(event) {
+    const newSelectedDate = event.target.value;
+    if (!newSelectedDate) return;
+
+    updateCalendarSelectionHighlight(newSelectedDate);
+
+    // Load saved workout text for the new date
+    const savedText = localStorage.getItem("workout-" + newSelectedDate) || "";
+    document.getElementById("workout-text").value = savedText;
+    // document.getElementById("workout-text").focus(); // Optional: focus textarea
+  }
+
+  // Helper to update calendar selection highlight
+  function updateCalendarSelectionHighlight(dateStrToSelect) {
+    document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
+    if (!dateStrToSelect) return;
+
+    const dateObj = new Date(dateStrToSelect + "T00:00:00"); // Ensure local timezone interpretation
+    const targetYear = dateObj.getFullYear();
+    const targetMonth = dateObj.getMonth(); // 0-indexed
+    const targetDay = dateObj.getDate();
+
+    // Only highlight if the date is in the current calendar view
+    if (targetYear === calendarYear && targetMonth === calendarMonth) {
+      const calendarDays = document.querySelectorAll("#calendar-grid .calendar-day");
+      calendarDays.forEach(dayDiv => {
+        if (dayDiv.textContent === String(targetDay) && !dayDiv.style.background.includes("transparent")) {
+          dayDiv.classList.add("selected");
+        }
+      });
+    }
+  }
+
+
+  document.getElementById("save-btn").addEventListener("click", saveWorkout);
+  document.getElementById("workout-date").addEventListener("change", handleDateInputChange); // Listen for date input changes
+
+  document.getElementById("export-btn").addEventListener("click", () => {
+    const workouts = [];
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith("workout-")) {
+        workouts.push({ date: key.replace("workout-", ""), entry: localStorage.getItem(key) });
+      }
+    });
+    workouts.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    let csv = "Date,Workout Details\n";
+    workouts.forEach(w => {
+      const safeEntry = '"' + w.entry.replace(/"/g, '""').replace(/\n/g, ' ') + '"';
+      csv += `${w.date},${safeEntry}\n`;
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "workouts.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("prev-month").addEventListener("click", () => {
+    calendarMonth--;
+    if (calendarMonth < 0) {
+      calendarMonth = 11;
+      calendarYear--;
+    }
+    renderCalendar();
+    // updateCalendarSelectionHighlight(document.getElementById("workout-date").value); // Re-apply selection
+  });
+
+  document.getElementById("next-month").addEventListener("click", () => {
+    calendarMonth++;
+    if (calendarMonth > 11) {
+      calendarMonth = 0;
+      calendarYear++;
+    }
+    renderCalendar();
+    // updateCalendarSelectionHighlight(document.getElementById("workout-date").value); // Re-apply selection
+  });
+
+  // Initialize UI
+  loadLog();
+  renderCalendar();
+  updateCalendarSelectionHighlight(document.getElementById("workout-date").value); // Initial selection highlight
+</script>
+</body>
 </html>
