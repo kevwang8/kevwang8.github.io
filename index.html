@@ -15,114 +15,144 @@
       --border-color: #374151;
       --button-hover: #FF5722;
       --green: #66bb6a;
+      --shadow-dark: rgba(0,0,0,0.7);
+      --input-bg: #2B3648;
+      --input-focus-bg: #37455D;
+      --entry-bg: #1F2937;
+      --header-bg: #37455D;
+      --calendar-bg: #2B3648;
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--background);
       margin: 0;
-      padding: 40px 20px;
+      padding: 30px 15px; /* Slightly reduced body padding */
       display: flex;
       justify-content: center;
       min-height: 100vh;
       color: var(--text-primary);
+      box-sizing: border-box;
     }
 
     .container {
       background: var(--main-box-bg);
-      max-width: 600px;
+      max-width: 600px; /* Kept max-width the same for calendar integrity */
       width: 100%;
-      padding: 10px 40px 30px 40px;
+      padding: 25px 35px; /* Slightly reduced container padding */
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+      box-shadow: 0 10px 25px var(--shadow-dark);
     }
 
     h1, h2 {
       text-align: center;
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 15px; /* Reduced margin */
       color: var(--accent-orange);
     }
 
     label {
       display: block;
-      margin-top: 20px;
+      margin-top: 18px; /* Reduced margin */
+      margin-bottom: 5px;
       font-weight: 600;
       color: var(--accent-light);
     }
 
     input[type="date"], textarea {
       width: 100%;
-      margin-top: 8px;
-      padding: 12px 14px;
-      font-size: 1rem;
+      padding: 10px 14px; /* Reduced input padding */
+      font-size: 0.95rem; /* Slightly smaller input font */
       border-radius: 10px;
       border: 2px solid var(--border-color);
-      background: #2B3648;
+      background: var(--input-bg);
       color: var(--text-primary);
       box-sizing: border-box;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
     }
 
     input[type="date"]:focus, textarea:focus {
       border-color: var(--accent-orange);
       outline: none;
-      background: #37455D;
+      background: var(--input-focus-bg);
     }
 
     textarea {
-      height: 120px;
+      height: 100px; /* Reduced textarea height */
       resize: vertical;
     }
 
-    button {
+    /* General button styles - applied to main action buttons and custom file upload */
+    button, .custom-file-upload {
       background: var(--accent-orange);
       border: none;
       color: white;
       font-weight: 700;
       border-radius: 12px;
-      padding: 12px 25px;
-      margin-top: 15px;
+      padding: 10px 18px; /* Reduced button padding */
+      margin-top: 15px; /* Reduced margin */
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      font-size: 1rem;
+      font-size: 0.9rem; /* Slightly smaller button font */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      max-width: calc(33.33% - 10px); /* Adjusted for 10px gap */
+      box-sizing: border-box;
+      min-width: 100px; /* Reduced min-width */
     }
 
-    button:hover {
+    button:hover, .custom-file-upload:hover {
       background: var(--button-hover);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
     #buttons-container {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 10px; /* Reduced gap between buttons */
+      flex-wrap: wrap;
+      margin-top: 18px; /* Consistent with label margin */
+      margin-bottom: 15px; /* Reduced margin below buttons */
     }
 
     .entry {
       position: relative;
-      background: #1F2937;
+      background: var(--entry-bg);
       border: 1px solid var(--border-color);
-      padding: 12px 45px 12px 14px;
+      padding: 12px 45px 12px 14px; /* Original padding to keep space for delete button */
       margin-top: 10px;
       border-radius: 10px;
       color: var(--text-secondary);
+      font-size: 0.95rem; /* Slightly smaller text for log entries */
     }
 
     .entry strong {
       color: var(--text-primary);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .entry div {
+      line-height: 1.6;
     }
 
     .entry button.delete-btn {
       position: absolute;
-      top: 12px;
-      right: 14px;
+      top: 10px; /* Adjusted position */
+      right: 12px; /* Adjusted position */
       background: #90caf9;
       border: none;
       color: #0d47a1;
       cursor: pointer;
       font-size: 0.8rem;
-      padding: 3px 8px;
+      padding: 4px 8px; /* Slightly reduced padding */
       border-radius: 6px;
       line-height: 1;
+      flex-grow: 0;
+      max-width: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .entry button.delete-btn:hover {
@@ -131,22 +161,31 @@
     }
 
     .month-group {
-      margin-top: 20px;
       border: 1px solid var(--border-color);
       border-radius: 12px;
       overflow: hidden;
+      margin-top: 18px; /* Consistent margin for groups */
+    }
+
+    #workout-log > .month-group:first-child {
+        margin-top: 0;
     }
 
     .month-header {
-      background: #37455D;
-      padding: 10px 20px;
+      background: var(--header-bg);
+      padding: 10px 20px; /* Reduced padding */
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.1rem; /* Slightly smaller font */
       color: var(--accent-light);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .month-header:hover {
+      background: #4A566A;
     }
 
     .month-header::after {
@@ -161,9 +200,9 @@
     }
 
     .entries {
-      background: #2B3648;
-      padding: 12px 20px;
-      max-height: 1000px; /* Adjusted for potential content, can be more dynamic if needed */
+      background: var(--calendar-bg);
+      padding: 12px 20px; /* Reduced padding */
+      max-height: 1000px; 
       overflow: hidden;
       transition: max-height 0.4s ease, padding 0.4s ease;
     }
@@ -174,23 +213,14 @@
       padding-bottom: 0;
     }
 
-    /* This rule was causing issues with dynamic max-height for accordions when explicitly set.
-       It's better to let the browser calculate height or set a sufficiently large max-height.
-    .month-group:not(.collapsed) .entries {
-      max-height: none; 
-    }
-    */
-
     /* Calendar Styles */
     .calendar {
-      margin-bottom: 30px;
-    }
-
-    .calendar-day:hover {
-      background-color: #3B4A62;
-      cursor: pointer;
-      transform: scale(1.05);
-      transition: background-color 0.2s ease, transform 0.2s ease;
+      margin-bottom: 25px; /* Slightly reduced margin */
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--calendar-bg);
+      padding: 15px; /* Original padding to keep it nice */
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
     }
 
     .calendar-header {
@@ -198,33 +228,47 @@
       justify-content: space-between;
       align-items: center;
       color: var(--accent-light);
-      margin-bottom: 10px;
+      margin-bottom: 10px; /* Original margin */
     }
 
     .calendar-header h2 {
-      font-size: 1.2rem;
+      font-size: 1.2rem; /* Original size */
       margin: 0;
+      color: var(--text-primary);
     }
 
+    /* Specific styles for calendar navigation buttons */
     .calendar-header button {
-      padding: 6px 12px;
+      /* Reverted specific values for calendar nav buttons */
+      padding: 6px 12px; 
       font-size: 0.9rem;
       border-radius: 6px;
-      box-shadow: none; /* Overriding main button shadow for these small ones */
+      background: #4A566A; /* Distinct background */
+      box-shadow: none; /* No extra shadow */
+      flex-grow: 0; /* Don't grow with other buttons */
+      max-width: none; /* No max-width restriction */
+      margin-top: 0; /* Remove top margin */
+      min-width: unset; /* Remove min-width restriction */
+    }
+
+    .calendar-header button:hover {
+      background: var(--accent-orange); /* Orange on hover */
+      box-shadow: none; /* No extra shadow on hover */
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 5px;
+      gap: 5px; /* Original gap */
     }
 
     .calendar-day, .calendar-label {
       text-align: center;
-      padding: 10px;
+      padding: 10px; /* Original padding */
       border-radius: 6px;
-      background: #2B3648;
-      font-size: 0.9rem;
+      background: var(--input-bg);
+      font-size: 0.9rem; /* Original size */
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .calendar-label {
@@ -233,19 +277,31 @@
       background: transparent;
     }
 
+    .calendar-day:not(.calendar-label):hover {
+      background-color: #3B4A62;
+      cursor: pointer;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
     .calendar-day.logged {
       background: var(--green);
       color: #fff;
+      font-weight: 600;
     }
 
     .calendar-day.today {
-      outline: 2px solid #42A5F5; /* Blue outline */
-      outline-offset: -2px;
+      outline: 2px solid #42A5F5; 
+      outline-offset: -3px;
+      box-shadow: 0 0 0 2px #42A5F5;
     }
 
     .calendar-day.selected {
-      outline: 2px solid var(--accent-orange); /* Orange outline */
-      outline-offset: -2px;
+      outline: 2px solid var(--accent-orange); 
+      outline-offset: -3px;
+      box-shadow: 0 0 0 2px var(--accent-orange);
+      background: var(--accent-orange);
+      color: white;
     }
 
     /* Success message styles */
@@ -253,10 +309,11 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 1.5s ease, visibility 1.5s ease;
-      color: var(--green);
       font-weight: 700;
       margin-top: 15px;
+      margin-bottom: 10px;
       text-align: center;
+      color: var(--green);
     }
 
     #success-message.show {
@@ -268,6 +325,39 @@
       transition: none !important;
       opacity: 1 !important;
       visibility: visible !important;
+    }
+
+    #import-file {
+      display: none; 
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 1.8rem;
+        }
+        h2 {
+            font-size: 1.4rem;
+        }
+        #buttons-container button,
+        #buttons-container .custom-file-upload {
+            max-width: 100%;
+        }
+        .calendar-header h2 {
+            font-size: 1.2rem;
+        }
+        /* Calendar buttons on small screens */
+        .calendar-header button {
+            padding: 6px 10px;
+            font-size: 0.85rem;
+        }
+        .calendar-day, .calendar-label {
+            font-size: 0.85rem;
+            padding: 8px 5px;
+        }
     }
   </style>
 </head>
@@ -292,10 +382,13 @@
 
   <div id="buttons-container">
     <button id="save-btn">Save Workout</button>
-    <button id="export-btn">Export Workouts</button>
+    <button id="export-btn">Export Data</button>
+    <input type="file" id="import-file" accept=".json" />
+    <label for="import-file" class="custom-file-upload">Import Data</label>
   </div>
 
   <div id="success-message">Workout saved successfully!</div>
+
 
   <h2>Workout Log</h2>
   <div id="workout-log"></div>
@@ -308,19 +401,19 @@
 
   document.getElementById("workout-date").value = today.toLocaleDateString('en-CA');
 
-  function showSuccessMessage() {
-    const msg = document.getElementById("success-message");
+  function showSaveMessage() {
+    const msgElement = document.getElementById("success-message");
     
-    msg.classList.add("instant-show");
-    msg.classList.add("show");
+    msgElement.classList.add("instant-show");
+    msgElement.classList.add("show");
     
     requestAnimationFrame(() => {
-      msg.classList.remove("instant-show");
+      msgElement.classList.remove("instant-show");
     });
     
     setTimeout(() => {
-      msg.classList.remove("show");
-    }, 2000);
+      msgElement.classList.remove("show");
+    }, 2000); 
   }
 
   function saveWorkout() {
@@ -341,16 +434,18 @@
     document.getElementById("workout-text").value = "";
     loadLog();
     renderCalendar(); 
-    // Ensure the newly saved date is marked as selected in the calendar if it's in the current view
     updateCalendarSelectionHighlight(date); 
-    showSuccessMessage();
+    showSaveMessage();
   }
 
   function deleteWorkout(date) {
+    if (!confirm(`Are you sure you want to delete the workout for ${date}?`)) {
+      return;
+    }
     localStorage.removeItem("workout-" + date);
     loadLog();
     renderCalendar();
-     // If the deleted date was selected, clear selection or select today/default
+    
     const currentDateInputVal = document.getElementById("workout-date").value;
     if(currentDateInputVal === date) {
         document.getElementById("workout-date").value = new Date().toLocaleDateString('en-CA');
@@ -401,9 +496,9 @@
 
         const summary = document.createElement("div");
         summary.textContent = `${grouped[ym].length} workout day(s) logged this month`;
-        summary.style.marginBottom = "10px";
+        summary.style.marginBottom = "8px";
         summary.style.fontWeight = "bold";
-        summary.style.color = "#FFAB91";
+        summary.style.color = "var(--accent-light)";
         entriesDiv.appendChild(summary);
 
         grouped[ym].forEach(({ date, entry }) => {
@@ -411,15 +506,15 @@
           entryDiv.classList.add("entry");
 
           const strong = document.createElement("strong");
-          strong.textContent = date + ": ";
-
+          strong.textContent = date; 
+          
           const textNode = document.createElement("div");
           textNode.innerHTML = entry.replace(/\n/g, "<br>");
 
           const deleteBtn = document.createElement("button");
           deleteBtn.classList.add("delete-btn");
           deleteBtn.textContent = "Delete";
-          deleteBtn.setAttribute('aria-label', `Delete workout for ${date}`); // ARIA label for delete button
+          deleteBtn.setAttribute('aria-label', `Delete workout for ${date}`); 
           deleteBtn.addEventListener("click", () => deleteWorkout(date));
 
           entryDiv.appendChild(deleteBtn);
@@ -433,12 +528,11 @@
         log.appendChild(groupDiv);
       });
 
-    // Display message if log is empty
     if (Object.keys(grouped).length === 0) {
         const emptyStateP = document.createElement("p");
         emptyStateP.textContent = "No workouts logged yet. Add one using the form above!";
         emptyStateP.style.textAlign = "center";
-        emptyStateP.style.marginTop = "20px";
+        emptyStateP.style.marginTop = "15px";
         emptyStateP.style.color = "var(--text-secondary)";
         log.appendChild(emptyStateP);
     }
@@ -451,7 +545,7 @@
 
     const firstDay = new Date(calendarYear, calendarMonth, 1);
     const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
-    const startDayOfWeek = firstDay.getDay(); // 0 (Sun) - 6 (Sat)
+    const startDayOfWeek = firstDay.getDay(); 
     const totalDays = lastDay.getDate();
 
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -503,67 +597,118 @@
     title.textContent = firstDay.toLocaleString(undefined, { month: "long", year: "numeric" });
   }
 
-  // New function to handle calendar selection based on date input
   function handleDateInputChange(event) {
     const newSelectedDate = event.target.value;
     if (!newSelectedDate) return;
 
     updateCalendarSelectionHighlight(newSelectedDate);
 
-    // Load saved workout text for the new date
     const savedText = localStorage.getItem("workout-" + newSelectedDate) || "";
     document.getElementById("workout-text").value = savedText;
-    // document.getElementById("workout-text").focus(); // Optional: focus textarea
   }
 
-  // Helper to update calendar selection highlight
   function updateCalendarSelectionHighlight(dateStrToSelect) {
     document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
     if (!dateStrToSelect) return;
 
-    const dateObj = new Date(dateStrToSelect + "T00:00:00"); // Ensure local timezone interpretation
+    const dateObj = new Date(dateStrToSelect + "T00:00:00"); 
     const targetYear = dateObj.getFullYear();
-    const targetMonth = dateObj.getMonth(); // 0-indexed
+    const targetMonth = dateObj.getMonth(); 
     const targetDay = dateObj.getDate();
 
-    // Only highlight if the date is in the current calendar view
     if (targetYear === calendarYear && targetMonth === calendarMonth) {
       const calendarDays = document.querySelectorAll("#calendar-grid .calendar-day");
-      calendarDays.forEach(dayDiv => {
+      let foundAndSelected = false;
+      for (const dayDiv of calendarDays) {
         if (dayDiv.textContent === String(targetDay) && !dayDiv.style.background.includes("transparent")) {
           dayDiv.classList.add("selected");
+          foundAndSelected = true;
+          break; 
         }
-      });
+      }
+      if (!foundAndSelected) {
+          document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
+      }
+    } else {
+        document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
     }
   }
 
 
   document.getElementById("save-btn").addEventListener("click", saveWorkout);
-  document.getElementById("workout-date").addEventListener("change", handleDateInputChange); // Listen for date input changes
+  document.getElementById("workout-date").addEventListener("change", handleDateInputChange); 
 
   document.getElementById("export-btn").addEventListener("click", () => {
     const workouts = [];
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith("workout-")) {
-        workouts.push({ date: key.replace("workout-", ""), entry: localStorage.getItem(key) });
+        workouts.push({ date: key.replace("workout-", ""), details: localStorage.getItem(key) });
       }
     });
     workouts.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    let csv = "Date,Workout Details\n";
-    workouts.forEach(w => {
-      const safeEntry = '"' + w.entry.replace(/"/g, '""').replace(/\n/g, ' ') + '"';
-      csv += `${w.date},${safeEntry}\n`;
-    });
+    const json = JSON.stringify(workouts, null, 2); 
 
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "workouts.csv";
+    a.download = "workouts.json";
     a.click();
     URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("import-file").addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const importedData = JSON.parse(e.target.result);
+
+        if (!Array.isArray(importedData)) {
+          console.error("Import error: JSON is not an array or malformed.");
+          alert("Import failed: The selected file is not a valid workout JSON file."); 
+          return;
+        }
+
+        if (confirm("Importing new workouts will replace existing ones. Do you want to proceed?")) {
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith("workout-")) {
+                    localStorage.removeItem(key);
+                }
+            });
+
+            importedData.forEach(item => {
+                if (item.date && item.details) {
+                    if (/^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
+                        localStorage.setItem("workout-" + item.date, item.details);
+                    } else {
+                        console.warn(`Skipping invalid date format: ${item.date} in import file.`);
+                    }
+                } else {
+                    console.warn("Skipping malformed entry during import:", item);
+                }
+            });
+            loadLog();
+            renderCalendar();
+            document.getElementById("workout-date").value = new Date().toLocaleDateString('en-CA');
+            document.getElementById("workout-text").value = "";
+            updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
+        }
+
+      } catch (error) {
+        console.error("Error parsing JSON file:", error);
+        alert("Import failed: Could not read or parse the JSON file. It might be corrupted or not a valid JSON."); 
+      } finally {
+        event.target.value = ''; 
+      }
+    };
+    reader.readAsText(file);
   });
 
   document.getElementById("prev-month").addEventListener("click", () => {
@@ -573,7 +718,7 @@
       calendarYear--;
     }
     renderCalendar();
-    // updateCalendarSelectionHighlight(document.getElementById("workout-date").value); // Re-apply selection
+    updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
   });
 
   document.getElementById("next-month").addEventListener("click", () => {
@@ -583,13 +728,13 @@
       calendarYear++;
     }
     renderCalendar();
-    // updateCalendarSelectionHighlight(document.getElementById("workout-date").value); // Re-apply selection
+    updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
   });
 
   // Initialize UI
   loadLog();
   renderCalendar();
-  updateCalendarSelectionHighlight(document.getElementById("workout-date").value); // Initial selection highlight
+  updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
 </script>
 </body>
 </html>
