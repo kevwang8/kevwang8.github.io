@@ -3,205 +3,369 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Workout Tracker</title>
+  <title>Activity Tracker</title>
   <style>
     :root {
-      --background: #121622;
-      --main-box-bg: #1E2733;
-      --accent-orange: #FF7043;
-      --accent-light: #FFAB91;
+      /* Base colors */
+      --background: #121622; /* Overall page background and default content area bg */
+      --main-box-bg: #1E2733; /* Main container and tab bar background */
+      
+      /* Specific background shades for tracker content areas */
+      --workout-tracker-content-bg: #11141E; /* Slightly darker/more saturated for Workout */
+      --running-tracker-content-bg: #141926; /* Slightly different for Running */
+
       --text-primary: #E0E0E0;
       --text-secondary: #B0B0B0;
       --border-color: #374151;
-      --button-hover: #FF5722;
       --green: #66bb6a;
       --shadow-dark: rgba(0,0,0,0.7);
       --input-bg: #2B3648;
-      --input-focus-bg: #37455D;
+      --input-focus-bg: #37455D; 
       --entry-bg: #1F2937;
       --header-bg: #37455D;
       --calendar-bg: #2B3648;
+      --tab-inactive-bg: #2B3648; 
+      --tab-inactive-text-color: var(--text-secondary);
+      
+      --orange-accent-main: #FF7043;
+      --orange-accent-light: #FFAB91;
+      --orange-accent-hover: #FF5722;
+      --orange-text-on-accent: white;
+
+      --blue-accent-main: #42A5F5;   
+      --blue-accent-light: #90CAF9;  
+      --blue-accent-hover: #1E88E5;  
+      --blue-text-on-accent: white;
+
+      /* Operational Theme Variables - Default to Workout/Orange */
+      --accent-main: var(--orange-accent-main);
+      --accent-main-light: var(--orange-accent-light);
+      --accent-main-hover: var(--orange-accent-hover);
+      --text-on-accent: var(--orange-text-on-accent);
+      --current-tracker-content-background: var(--workout-tracker-content-bg); /* Default to workout */
+    }
+
+    .container.theme-workout {
+      --accent-main: var(--orange-accent-main);
+      --accent-main-light: var(--orange-accent-light);
+      --accent-main-hover: var(--orange-accent-hover);
+      --text-on-accent: var(--orange-text-on-accent);
+      --current-tracker-content-background: var(--workout-tracker-content-bg);
+    }
+    .container.theme-running {
+      --accent-main: var(--blue-accent-main);
+      --accent-main-light: var(--blue-accent-light);
+      --accent-main-hover: var(--blue-accent-hover);
+      --text-on-accent: var(--blue-text-on-accent);
+      --current-tracker-content-background: var(--running-tracker-content-bg);
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--background);
+      background: var(--background); /* Global page background */
       margin: 0;
-      padding: 30px 15px; /* Slightly reduced body padding */
+      padding: 30px 15px;
       display: flex;
       justify-content: center;
+      align-items: center;
       min-height: 100vh;
       color: var(--text-primary);
       box-sizing: border-box;
+      font-weight: 400; 
+      line-height: 1.6; 
+      font-size: 16px; 
     }
 
     .container {
-      background: var(--main-box-bg);
-      max-width: 600px; /* Kept max-width the same for calendar integrity */
+      background: var(--main-box-bg); /* Background for the main container shell */
+      max-width: 800px;
       width: 100%;
-      padding: 25px 35px; /* Slightly reduced container padding */
       border-radius: 12px;
       box-shadow: 0 10px 25px var(--shadow-dark);
+      display: flex;
+      min-height: 600px;
+      max-height: calc(100vh - 60px);
+      overflow: hidden;
     }
 
-    h1, h2 {
-      text-align: center;
-      font-weight: 700;
-      margin-bottom: 15px; /* Reduced margin */
-      color: var(--accent-orange);
+    .tabs-vertical {
+      display: flex;
+      flex-direction: column;
+      width: 180px;
+      flex-shrink: 0;
+      background: var(--main-box-bg); /* Tab bar shares main container background */
+      padding: 20px 0;
+      box-shadow: inset -5px 0px 5px -5px rgba(0,0,0,0.2);
     }
 
-    label {
-      display: block;
-      margin-top: 18px; /* Reduced margin */
-      margin-bottom: 5px;
+    .tab-link {
+      padding: 15px 20px;
+      text-align: left;
+      background-color: transparent;
+      color: var(--tab-inactive-text-color);
+      border: none;
+      cursor: pointer;
       font-weight: 600;
-      color: var(--accent-light);
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease, color 0.3s ease, border-left-color 0.3s ease;
+      border-left: 4px solid transparent;
+      margin-right: -1px;
+    }
+
+    .tab-link.active {
+      /* Active tab uses the themed tracker content background */
+      background-color: var(--current-tracker-content-background); 
+      color: var(--accent-main);
+      font-weight: 700;
+      border-left-color: var(--accent-main);
+    }
+
+    .tab-link:hover:not(.active) {
+      background-color: var(--input-bg);
+      color: var(--text-primary);
+    }
+
+    .tracker-main-content-area {
+      flex-grow: 1;
+      padding: 15px 30px 25px 30px; 
+      overflow-y: auto;
+      /* Tracker content area uses the themed background */
+      background-color: var(--current-tracker-content-background); 
+      
+      scrollbar-width: thin; 
+      scrollbar-color: var(--input-focus-bg) var(--current-tracker-content-background); 
+    }
+
+    .tracker-main-content-area::-webkit-scrollbar {
+      width: 10px; 
+      height: 10px;
+    }
+    .tracker-main-content-area::-webkit-scrollbar-track {
+      background: var(--current-tracker-content-background); 
+      border-radius: 5px; 
+    }
+    .tracker-main-content-area::-webkit-scrollbar-thumb {
+      background-color: var(--input-focus-bg); 
+      border-radius: 5px; 
+      border: 2px solid var(--current-tracker-content-background); 
+    }
+    .tracker-main-content-area::-webkit-scrollbar-thumb:hover {
+      background-color: var(--accent-main); 
+    }
+    .tracker-main-content-area::-webkit-scrollbar-corner {
+        background: var(--current-tracker-content-background);
+    }
+
+    .tracker-content { display: none; }
+    .tracker-content.active { display: block; }
+
+    .tracker-content h2 { 
+      font-size: 0.9rem;    
+      font-weight: 600;     
+      color: var(--text-secondary); 
+      text-align: left;
+      text-transform: uppercase; 
+      letter-spacing: 1px;       
+      margin-top: 0; 
+      margin-bottom: 15px;          
+    }
+
+    label:not(.custom-file-upload) { 
+      display: block;
+      margin-top: 12px; 
+      margin-bottom: 4px; 
+      font-size: 0.8rem; 
+      font-weight: 500; 
+      color: var(--text-secondary); 
+      text-transform: uppercase;
+      letter-spacing: 0.6px; 
     }
 
     input[type="date"], textarea {
       width: 100%;
-      padding: 10px 14px; /* Reduced input padding */
-      font-size: 0.95rem; /* Slightly smaller input font */
-      border-radius: 10px;
-      border: 2px solid var(--border-color);
+      padding: 10px 14px;
+      font-size: 0.9rem; 
+      font-weight: 400; 
+      letter-spacing: 0.2px; 
+      line-height: 1.5; 
+      border-radius: 8px; 
+      border: 1px solid var(--border-color); 
       background: var(--input-bg);
       color: var(--text-primary);
       box-sizing: border-box;
       transition: border-color 0.3s ease, background-color 0.3s ease;
     }
+     input[type="date"] {
+        line-height: normal; 
+     }
+
+
+    input::placeholder, textarea::placeholder { 
+        color: var(--text-secondary);
+        opacity: 0.6; 
+        font-weight: 400;
+    }
 
     input[type="date"]:focus, textarea:focus {
-      border-color: var(--accent-orange);
+      border-color: var(--accent-main);
       outline: none;
       background: var(--input-focus-bg);
     }
 
-    textarea {
-      height: 100px; /* Reduced textarea height */
-      resize: vertical;
+    textarea { 
+        height: 100px; 
+        resize: vertical; 
     }
 
-    /* General button styles - applied to main action buttons and custom file upload */
-    button, .custom-file-upload {
-      background: var(--accent-orange);
-      border: none;
-      color: white;
-      font-weight: 700;
-      border-radius: 12px;
-      padding: 10px 18px; /* Reduced button padding */
-      margin-top: 15px; /* Reduced margin */
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px; 
+      margin-bottom: 0; 
+    }
+
+    .buttons-container > button,
+    .buttons-container > .custom-file-upload { 
+      font-weight: 600; 
+      border-radius: 8px;
+      padding: 10px 18px;
+      margin-top: 15px; 
       cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      font-size: 0.9rem; /* Slightly smaller button font */
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+      font-size: 0.85rem; 
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-grow: 1;
-      max-width: calc(33.33% - 10px); /* Adjusted for 10px gap */
+      max-width: calc(33.33% - 10px); 
       box-sizing: border-box;
-      min-width: 100px; /* Reduced min-width */
+      min-width: 100px; 
+      text-decoration: none; 
+      border-width: 2px; 
+      border-style: solid;
+      line-height: 1.4; 
+      min-height: 44px; 
+      letter-spacing: 0.3px;
     }
 
-    button:hover, .custom-file-upload:hover {
-      background: var(--button-hover);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    .buttons-container .button-secondary,
+    .buttons-container .custom-file-upload {
+      background: transparent;
+      border-color: var(--accent-main);
+      color: var(--accent-main);
     }
 
-    #buttons-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px; /* Reduced gap between buttons */
-      flex-wrap: wrap;
-      margin-top: 18px; /* Consistent with label margin */
-      margin-bottom: 15px; /* Reduced margin below buttons */
+    .buttons-container .button-secondary:hover,
+    .buttons-container .custom-file-upload:hover {
+      background: var(--accent-main);
+      border-color: var(--accent-main); 
+      color: var(--text-on-accent);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    #workout-save-btn,
+    #running-save-btn {
+      background: var(--accent-main);
+      border-color: var(--accent-main); 
+      color: var(--text-on-accent);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    #workout-save-btn:hover,
+    #running-save-btn:hover {
+      background: var(--accent-main-hover);
+      border-color: var(--accent-main-hover);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transform: translateY(-1px);
     }
 
     .entry {
       position: relative;
       background: var(--entry-bg);
-      border: 1px solid var(--border-color);
-      padding: 12px 45px 12px 14px; /* Original padding to keep space for delete button */
+      border: 1px solid var(--border-color); 
+      padding: 12px 75px 12px 14px; 
       margin-top: 10px;
-      border-radius: 10px;
+      border-radius: 8px; 
       color: var(--text-secondary);
-      font-size: 0.95rem; /* Slightly smaller text for log entries */
+      font-size: 0.9rem; 
+      box-sizing: border-box; 
     }
 
-    .entry strong {
+    .entry strong { 
       color: var(--text-primary);
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 4px; 
+      font-weight: 600; 
+      font-size: 0.85rem; 
+      letter-spacing: 0.2px;
     }
 
-    .entry div {
-      line-height: 1.6;
+    .entry div { 
+      line-height: 1.6; 
+      color: var(--text-primary); 
     }
-
-    .entry button.delete-btn {
+    
+    .entry button.delete-btn { 
       position: absolute;
-      top: 10px; /* Adjusted position */
-      right: 12px; /* Adjusted position */
-      background: #90caf9;
-      border: none;
-      color: #0d47a1;
+      top: 10px;
+      right: 10px; 
+      background: transparent;
+      border: 1px solid var(--accent-main-light);
+      color: var(--accent-main-light);
+      font-size: 0.75rem;
+      padding: 3px 7px;
+      border-radius: 5px;
+      line-height: 1; 
       cursor: pointer;
-      font-size: 0.8rem;
-      padding: 4px 8px; /* Slightly reduced padding */
-      border-radius: 6px;
-      line-height: 1;
-      flex-grow: 0;
-      max-width: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
     .entry button.delete-btn:hover {
-      background: #f44336;
+      background: #f44336; 
       color: white;
+      border-color: #f44336;
     }
-
-    .month-group {
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 18px; /* Consistent margin for groups */
+    
+    .month-summary { 
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+        margin-top: 5px; 
     }
-
-    #workout-log > .month-group:first-child {
-        margin-top: 0;
-    }
-
-    .month-header {
+    
+    .month-header { 
       background: var(--header-bg);
-      padding: 10px 20px; /* Reduced padding */
-      font-weight: 700;
-      font-size: 1.1rem; /* Slightly smaller font */
-      color: var(--accent-light);
+      padding: 10px 15px; 
+      font-weight: 600; 
+      font-size: 1rem; 
+      color: var(--accent-main-light);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: background-color 0.3s ease;
+      letter-spacing: 0.3px;
     }
-
-    .month-header:hover {
-      background: #4A566A;
-    }
+    
+    .month-header:hover { background: #4A566A; }
 
     .month-header::after {
       content: "▼";
       transition: transform 0.3s ease;
       font-size: 0.9rem;
-      color: var(--accent-orange);
+      color: var(--accent-main);
     }
 
-    .month-group.collapsed .month-header::after {
-      transform: rotate(-90deg);
-    }
+    .month-group.collapsed .month-header::after { transform: rotate(-90deg); }
 
     .entries {
-      background: var(--calendar-bg);
-      padding: 12px 20px; /* Reduced padding */
+      background: var(--main-box-bg);
+      padding: 12px 20px;
       max-height: 1000px; 
       overflow: hidden;
       transition: max-height 0.4s ease, padding 0.4s ease;
@@ -213,13 +377,12 @@
       padding-bottom: 0;
     }
 
-    /* Calendar Styles */
     .calendar {
-      margin-bottom: 25px; /* Slightly reduced margin */
+      margin-bottom: 15px; /* Adjusted */
       border-radius: 12px;
       overflow: hidden;
       background: var(--calendar-bg);
-      padding: 15px; /* Original padding to keep it nice */
+      padding: 15px;
       box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
     }
 
@@ -227,56 +390,69 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: var(--accent-light);
-      margin-bottom: 10px; /* Original margin */
+      color: var(--accent-main-light);
+      margin-bottom: 10px;
     }
 
     .calendar-header h2 {
-      font-size: 1.2rem; /* Original size */
+      font-size: 1.2rem;
       margin: 0;
       color: var(--text-primary);
     }
 
-    /* Specific styles for calendar navigation buttons */
     .calendar-header button {
-      /* Reverted specific values for calendar nav buttons */
       padding: 6px 12px; 
       font-size: 0.9rem;
       border-radius: 6px;
-      background: #4A566A; /* Distinct background */
-      box-shadow: none; /* No extra shadow */
-      flex-grow: 0; /* Don't grow with other buttons */
-      max-width: none; /* No max-width restriction */
-      margin-top: 0; /* Remove top margin */
-      min-width: unset; /* Remove min-width restriction */
+      background: #4A566A;
+      color: var(--text-primary);
+      border: none;
+      box-shadow: none;
+      flex-grow: 0;
+      max-width: none;
+      margin-top: 0;
+      min-width: unset;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .calendar-header button:hover {
-      background: var(--accent-orange); /* Orange on hover */
-      box-shadow: none; /* No extra shadow on hover */
+      background: var(--accent-main);
+      color: var(--text-on-accent);
+      box-shadow: none;
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 5px; /* Original gap */
+      gap: 5px;
     }
 
     .calendar-day, .calendar-label {
       text-align: center;
-      padding: 10px; /* Original padding */
+      padding: 10px 5px; 
       border-radius: 6px;
-      background: var(--input-bg);
-      font-size: 0.9rem; /* Original size */
-      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      background: var(--input-bg); 
+      font-size: 0.85rem; 
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, outline-color 0.2s ease;
+      outline: 2px solid transparent; 
+      outline-offset: -2px;
+      font-weight: 400; 
+      box-sizing: border-box; 
     }
 
-    .calendar-label {
-      font-weight: bold;
-      color: var(--accent-light);
+    .calendar-label { 
+      font-weight: 500; 
+      color: var(--text-secondary); 
       background: transparent;
+      outline: none; 
+      font-size: 0.7rem; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+      padding-top: 8px; 
+      padding-bottom: 8px;
     }
-
+    
     .calendar-day:not(.calendar-label):hover {
       background-color: #3B4A62;
       cursor: pointer;
@@ -290,199 +466,328 @@
       font-weight: 600;
     }
 
-    .calendar-day.today {
-      outline: 2px solid #42A5F5; 
-      outline-offset: -3px;
-      box-shadow: 0 0 0 2px #42A5F5;
+    .calendar-day.today { 
+      font-weight: 700;             
+      color: var(--text-primary); 
+      background-color: var(--input-bg); /* Ensure standard background */
+      box-shadow: 0 0 0 1.5px var(--text-secondary) inset; 
+      outline-color: transparent;    
     }
 
     .calendar-day.selected {
-      outline: 2px solid var(--accent-orange); 
-      outline-offset: -3px;
-      box-shadow: 0 0 0 2px var(--accent-orange);
-      background: var(--accent-orange);
-      color: white;
+      background-color: var(--input-bg); 
+      color: var(--accent-main);         
+      font-weight: 700;                  
+      outline-color: var(--accent-main); 
+      box-shadow: none !important; /* Ensure this overrides today's box-shadow */                   
     }
 
-    /* Success message styles */
-    #success-message {
+    .calendar-day.logged.selected { 
+      background-color: var(--green); 
+      color: #FFFFFF;                 
+      outline-color: var(--accent-main); 
+      box-shadow: none !important; /* Ensure this overrides today's box-shadow */
+    }
+
+
+    .success-message {
       opacity: 0;
       visibility: hidden;
       transition: opacity 1.5s ease, visibility 1.5s ease;
       font-weight: 700;
-      margin-top: 15px;
-      margin-bottom: 10px;
+      margin-top: 12px; /* Adjusted */
+      margin-bottom: 20px; /* Adjusted */
       text-align: center;
       color: var(--green);
     }
 
-    #success-message.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    #success-message.instant-show {
+    .success-message.show { opacity: 1; visibility: visible; }
+    .success-message.instant-show {
       transition: none !important;
       opacity: 1 !important;
       visibility: visible !important;
     }
 
-    #import-file {
-      display: none; 
-    }
+    input[type="file"] { display: none; }
 
-    /* Responsive adjustments */
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         .container {
-            padding: 20px;
+            flex-direction: column;
+            max-height: none;
+            min-height: unset;
         }
-        h1 {
-            font-size: 1.8rem;
+        .tabs-vertical {
+            flex-direction: row;
+            width: 100%;
+            padding: 0;
+            margin-right: 0;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border-right: none;
+            border-radius: 8px;
+            overflow: hidden;
         }
-        h2 {
-            font-size: 1.4rem;
+        .tab-link {
+            flex-grow: 1;
+            text-align: center;
+            padding: 12px 10px;
+            font-size: 0.9rem;
+            border-left: none;
         }
-        #buttons-container button,
-        #buttons-container .custom-file-upload {
-            max-width: 100%;
+        .tab-link.active {
+            /* Active tab uses themed tracker content background in responsive too */
+            background-color: var(--current-tracker-content-background); 
+            color: var(--accent-main);
+            border-left: none; /* Remove left border from vertical style */
+            border-bottom: 4px solid var(--accent-main); /* Add bottom border for horizontal active tab */
+            font-weight: 700;
+            margin-right: 0; /* Reset margin */
         }
-        .calendar-header h2 {
-            font-size: 1.2rem;
+        .tab-link:not(:last-child) {
+            border-bottom: none; 
+            border-right: 1px solid var(--border-color); 
         }
-        /* Calendar buttons on small screens */
-        .calendar-header button {
-            padding: 6px 10px;
-            font-size: 0.85rem;
+        .tracker-main-content-area {
+            padding: 15px; 
+            max-height: none;
         }
-        .calendar-day, .calendar-label {
-            font-size: 0.85rem;
-            padding: 8px 5px;
+         .tracker-content h2 { 
+            margin-top: 20px;            
+            margin-bottom: 10px; 
         }
+    }
+    @media (max-width: 480px) {
+      .tracker-main-content-area { 
+          padding: 10px 15px 15px 15px; 
+      }
+      .tracker-content h2 { 
+        font-size: 0.85rem;   
+        margin-top: 20px; 
+        margin-bottom: 10px;  
+        letter-spacing: 0.8px;
+      }
+      .buttons-container > button,
+      .buttons-container > .custom-file-upload { 
+         max-width: 100%; 
+         flex-basis: 100%; 
+         margin-left: 0;
+         margin-right: 0;
+      }
+      .calendar-header h2 { font-size: 1.1rem; }
+      .calendar-header button { padding: 5px 8px; font-size: 0.8rem; }
+      .calendar-day, .calendar-label { 
+          font-size: 0.8rem; 
+          padding: 7px 4px; 
+        }
+      .calendar-label {
+          font-size: 0.65rem; 
+      }
+      .tab-link { font-size: 0.85rem; }
+      .tab-link.active {
+          padding-bottom: calc(12px - 4px); /* Adjust padding to account for border */
+      }
     }
   </style>
 </head>
-<body>
-<div class="container">
-  <h1>Workout Tracker</h1>
+<body class="theme-workout"> 
+<div class="container theme-workout"> 
+  <div class="tabs-vertical">
+    <button class="tab-link active" data-tab="workout">Workout Tracker</button>
+    <button class="tab-link" data-tab="running">Running Tracker</button>
+  </div>
 
-  <div class="calendar">
-    <div class="calendar-header">
-      <button id="prev-month" aria-label="Previous month">◀</button>
-      <h2 id="calendar-title">This Month</h2>
-      <button id="next-month" aria-label="Next month">▶</button>
+  <div class="tracker-main-content-area">
+    <div id="workout-tracker-content" class="tracker-content active">
+      <div class="calendar">
+        <div class="calendar-header">
+          <button id="workout-prev-month" aria-label="Previous month">◀</button>
+          <h2 id="workout-calendar-title">This Month</h2>
+          <button id="workout-next-month" aria-label="Next month">▶</button>
+        </div>
+        <div class="calendar-grid" id="workout-calendar-grid"></div>
+      </div>
+      <label for="workout-date">Date:</label>
+      <input type="date" id="workout-date" />
+      <label for="workout-text">Workout Details:</label>
+      <textarea id="workout-text" placeholder="E.g., Squats: 3 sets x 8-10 reps @ 100kg"></textarea>
+      
+      <div class="buttons-container">
+        <button id="workout-save-btn">Save Workout</button>
+        <button id="workout-export-btn" class="button-secondary">Export Data</button>
+        <input type="file" id="workout-import-file" accept=".json" />
+        <label for="workout-import-file" class="custom-file-upload">Import Data</label>
+      </div>
+      <div id="workout-success-message" class="success-message">Workout saved successfully!</div>
+      
+      <h2>Workout Log</h2>
+      <div id="workout-log" class="log-display"></div>
     </div>
-    <div class="calendar-grid" id="calendar-grid"></div>
-  </div>
 
-  <label for="workout-date">Date:</label>
-  <input type="date" id="workout-date" />
+    <div id="running-tracker-content" class="tracker-content">
+      <div class="calendar">
+        <div class="calendar-header">
+          <button id="running-prev-month" aria-label="Previous month">◀</button>
+          <h2 id="running-calendar-title">This Month</h2>
+          <button id="running-next-month" aria-label="Next month">▶</button>
+        </div>
+        <div class="calendar-grid" id="running-calendar-grid"></div>
+      </div>
+      <label for="running-date">Date:</label>
+      <input type="date" id="running-date" />
+      <label for="running-text">Run Details:</label>
+      <textarea id="running-text" placeholder="E.g., Distance: 5km, Time: 25min, Pace: 5:00/km"></textarea>
+      
+      <div class="buttons-container">
+        <button id="running-save-btn">Save Run</button>
+        <button id="running-export-btn" class="button-secondary">Export Data</button>
+        <input type="file" id="running-import-file" accept=".json" />
+        <label for="running-import-file" class="custom-file-upload">Import Data</label>
+      </div>
+      <div id="running-success-message" class="success-message">Run saved successfully!</div>
+      
+      <h2>Running Log</h2>
+      <div id="running-log" class="log-display"></div>
+    </div>
+  </div> 
 
-  <label for="workout-text">Workout Details:</label>
-  <textarea id="workout-text" placeholder="E.g., Squats: 3 sets x 8-10 reps @ 100kg"></textarea>
-
-  <div id="buttons-container">
-    <button id="save-btn">Save Workout</button>
-    <button id="export-btn">Export Data</button>
-    <input type="file" id="import-file" accept=".json" />
-    <label for="import-file" class="custom-file-upload">Import Data</label>
-  </div>
-
-  <div id="success-message">Workout saved successfully!</div>
-
-
-  <h2>Workout Log</h2>
-  <div id="workout-log"></div>
-</div>
+</div> 
 
 <script>
-  const today = new Date();
-  let calendarMonth = today.getMonth();
-  let calendarYear = today.getFullYear();
+  const G_TODAY_DATE = new Date();
+  const G_TODAY_STRING_CA = G_TODAY_DATE.toLocaleDateString('en-CA');
+  let activeTrackerId = 'workout'; 
+  const trackerConfigs = {
+    workout: {
+      id: 'workout',
+      themeClass: 'theme-workout', 
+      name: "Workout Tracker",
+      logTitle: "Workout Log",
+      localStoragePrefix: "workout-",
+      dateInputId: "workout-date",
+      textInputId: "workout-text",
+      logId: "workout-log",
+      calendarGridId: "workout-calendar-grid",
+      calendarTitleId: "workout-calendar-title",
+      prevMonthBtnId: "workout-prev-month",
+      nextMonthBtnId: "workout-next-month",
+      saveBtnId: "workout-save-btn",
+      exportBtnId: "workout-export-btn",
+      importFileId: "workout-import-file",
+      successMessageId: "workout-success-message",
+      contentWrapperId: "workout-tracker-content",
+      placeholder: "E.g., Squats: 3 sets x 8-10 reps @ 100kg",
+      saveButtonText: "Save Workout",
+      calendarState: { month: G_TODAY_DATE.getMonth(), year: G_TODAY_DATE.getFullYear() }
+    },
+    running: {
+      id: 'running',
+      themeClass: 'theme-running', 
+      name: "Running Tracker",
+      logTitle: "Running Log",
+      localStoragePrefix: "running-",
+      dateInputId: "running-date",
+      textInputId: "running-text",
+      logId: "running-log",
+      calendarGridId: "running-calendar-grid",
+      calendarTitleId: "running-calendar-title",
+      prevMonthBtnId: "running-prev-month",
+      nextMonthBtnId: "running-next-month",
+      saveBtnId: "running-save-btn",
+      exportBtnId: "running-export-btn",
+      importFileId: "running-import-file",
+      successMessageId: "running-success-message",
+      contentWrapperId: "running-tracker-content",
+      placeholder: "E.g., Distance: 5km, Time: 25min, Pace: 5:00/km",
+      saveButtonText: "Save Run",
+      calendarState: { month: G_TODAY_DATE.getMonth(), year: G_TODAY_DATE.getFullYear() }
+    }
+  };
+  const containerElement = document.querySelector('.container'); 
 
-  document.getElementById("workout-date").value = today.toLocaleDateString('en-CA');
+  function getActiveConfig() { return trackerConfigs[activeTrackerId]; }
 
   function showSaveMessage() {
-    const msgElement = document.getElementById("success-message");
-    
+    const config = getActiveConfig();
+    const msgElement = document.getElementById(config.successMessageId);
     msgElement.classList.add("instant-show");
     msgElement.classList.add("show");
-    
-    requestAnimationFrame(() => {
-      msgElement.classList.remove("instant-show");
-    });
-    
-    setTimeout(() => {
-      msgElement.classList.remove("show");
-    }, 2000); 
+    requestAnimationFrame(() => { msgElement.classList.remove("instant-show"); });
+    setTimeout(() => { msgElement.classList.remove("show"); }, 2000); 
   }
 
-  function saveWorkout() {
-    const date = document.getElementById("workout-date").value;
-    const text = document.getElementById("workout-text").value.trim();
-    if (!date || !text) {
-      alert("Please enter both a date and workout details.");
-      return;
-    }
-
-    const todayStr = new Date().toLocaleDateString('en-CA');
-    if (date > todayStr) {
-      alert("You can't log workouts for future dates.");
-      return;
-    }
-
-    localStorage.setItem("workout-" + date, text);
-    document.getElementById("workout-text").value = "";
-    loadLog();
-    renderCalendar(); 
-    updateCalendarSelectionHighlight(date); 
-    showSaveMessage();
+  function saveEntry() {
+    const config = getActiveConfig();
+    const date = document.getElementById(config.dateInputId).value;
+    const text = document.getElementById(config.textInputId).value.trim();
+    if (!date || !text) { alert("Please enter both a date and details."); return; }
+    if (date > G_TODAY_STRING_CA) { alert("You can't log entries for future dates."); return; }
+    localStorage.setItem(config.localStoragePrefix + date, text);
+    document.getElementById(config.textInputId).value = "";
+    loadLog(); renderCalendar(); updateCalendarSelectionHighlight(date); showSaveMessage();
   }
 
-  function deleteWorkout(date) {
-    if (!confirm(`Are you sure you want to delete the workout for ${date}?`)) {
-      return;
-    }
-    localStorage.removeItem("workout-" + date);
-    loadLog();
+  function deleteEntry(date) { 
+    const config = getActiveConfig();
+    localStorage.removeItem(config.localStoragePrefix + date);
+    loadLog(); 
     renderCalendar();
-    
-    const currentDateInputVal = document.getElementById("workout-date").value;
+    const currentDateInputVal = document.getElementById(config.dateInputId).value;
     if(currentDateInputVal === date) {
-        document.getElementById("workout-date").value = new Date().toLocaleDateString('en-CA');
-        document.getElementById("workout-text").value = "";
-        updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
+        document.getElementById(config.dateInputId).value = G_TODAY_STRING_CA;
+        document.getElementById(config.textInputId).value = "";
+        updateCalendarSelectionHighlight(G_TODAY_STRING_CA);
     }
   }
 
   function loadLog() {
-    const log = document.getElementById("workout-log");
-    log.innerHTML = "";
+    const config = getActiveConfig();
+    const logElement = document.getElementById(config.logId);
+
+    const collapsedStates = {};
+    const existingMonthGroups = logElement.querySelectorAll('.month-group');
+    existingMonthGroups.forEach(group => {
+      const groupYm = group.dataset.ymId; 
+      if (groupYm && group.classList.contains('collapsed')) {
+        collapsedStates[groupYm] = true;
+      } else if (groupYm) {
+        collapsedStates[groupYm] = false;
+      }
+    });
+
+    logElement.innerHTML = "";
     const entries = [];
     Object.keys(localStorage).forEach(key => {
-      if (key.startsWith("workout-")) {
-        entries.push({
-          date: key.replace("workout-", ""),
-          entry: localStorage.getItem(key)
-        });
+      if (key.startsWith(config.localStoragePrefix)) {
+        entries.push({ date: key.replace(config.localStoragePrefix, ""), entry: localStorage.getItem(key) });
       }
     });
     entries.sort((a, b) => new Date(b.date) - new Date(a.date));
-
     const grouped = {};
     entries.forEach(({ date, entry }) => {
       const ym = date.slice(0, 7);
       if (!grouped[ym]) grouped[ym] = [];
       grouped[ym].push({ date, entry });
     });
-
-    const currentYM = today.toLocaleDateString('en-CA').slice(0,7);
-
-    Object.keys(grouped)
-      .sort((a, b) => new Date(b + "-01") - new Date(a + "-01"))
-      .forEach(ym => {
+    const currentYM = G_TODAY_STRING_CA.slice(0,7);
+    Object.keys(grouped).sort((a, b) => new Date(b + "-01") - new Date(a + "-01")).forEach(ym => {
         const groupDiv = document.createElement("div");
         groupDiv.classList.add("month-group");
-        if (ym !== currentYM) groupDiv.classList.add("collapsed");
+        groupDiv.dataset.ymId = ym; 
+
+        if (ym !== currentYM) {
+          groupDiv.classList.add("collapsed");
+        }
+
+        if (collapsedStates.hasOwnProperty(ym)) {
+          if (collapsedStates[ym]) { 
+            groupDiv.classList.add('collapsed');
+          } else { 
+            groupDiv.classList.remove('collapsed');
+          }
+        } else if (ym === currentYM) { 
+            groupDiv.classList.remove('collapsed');
+        }
+
 
         const header = document.createElement("div");
         header.classList.add("month-header");
@@ -490,251 +795,167 @@
         const displayDate = new Date(parseInt(year), parseInt(month) - 1);
         header.textContent = displayDate.toLocaleString(undefined, { year: "numeric", month: "long" });
         header.addEventListener("click", () => groupDiv.classList.toggle("collapsed"));
-
         const entriesDiv = document.createElement("div");
         entriesDiv.classList.add("entries");
-
+        
         const summary = document.createElement("div");
-        summary.textContent = `${grouped[ym].length} workout day(s) logged this month`;
-        summary.style.marginBottom = "8px";
-        summary.style.fontWeight = "bold";
-        summary.style.color = "var(--accent-light)";
+        summary.className = "month-summary"; 
+        summary.textContent = `${grouped[ym].length} day(s) logged this month`;
         entriesDiv.appendChild(summary);
 
         grouped[ym].forEach(({ date, entry }) => {
           const entryDiv = document.createElement("div");
           entryDiv.classList.add("entry");
-
-          const strong = document.createElement("strong");
-          strong.textContent = date; 
-          
-          const textNode = document.createElement("div");
-          textNode.innerHTML = entry.replace(/\n/g, "<br>");
-
+          const strong = document.createElement("strong"); strong.textContent = date; 
+          const textNode = document.createElement("div"); textNode.innerHTML = entry.replace(/\n/g, "<br>");
           const deleteBtn = document.createElement("button");
-          deleteBtn.classList.add("delete-btn");
-          deleteBtn.textContent = "Delete";
-          deleteBtn.setAttribute('aria-label', `Delete workout for ${date}`); 
-          deleteBtn.addEventListener("click", () => deleteWorkout(date));
-
-          entryDiv.appendChild(deleteBtn);
-          entryDiv.appendChild(strong);
-          entryDiv.appendChild(textNode);
+          deleteBtn.className = "delete-btn"; deleteBtn.textContent = "Delete";
+          deleteBtn.setAttribute('aria-label', `Delete entry for ${date}`); 
+          deleteBtn.onclick = () => deleteEntry(date);
+          entryDiv.append(deleteBtn, strong, textNode);
           entriesDiv.appendChild(entryDiv);
         });
-
-        groupDiv.appendChild(header);
-        groupDiv.appendChild(entriesDiv);
-        log.appendChild(groupDiv);
+        groupDiv.append(header, entriesDiv);
+        logElement.appendChild(groupDiv);
       });
-
     if (Object.keys(grouped).length === 0) {
-        const emptyStateP = document.createElement("p");
-        emptyStateP.textContent = "No workouts logged yet. Add one using the form above!";
-        emptyStateP.style.textAlign = "center";
-        emptyStateP.style.marginTop = "15px";
-        emptyStateP.style.color = "var(--text-secondary)";
-        log.appendChild(emptyStateP);
+        const p = document.createElement("p");
+        p.textContent = `No ${config.id} entries logged yet. Add one!`;
+        p.style.cssText = "text-align: center; margin-top: 15px; color: var(--text-secondary);";
+        logElement.appendChild(p);
     }
   }
 
   function renderCalendar() {
-    const grid = document.getElementById("calendar-grid");
-    const title = document.getElementById("calendar-title");
+    const config = getActiveConfig();
+    const { month: calMonth, year: calYear } = config.calendarState;
+    const grid = document.getElementById(config.calendarGridId);
+    const title = document.getElementById(config.calendarTitleId);
     grid.innerHTML = "";
-
-    const firstDay = new Date(calendarYear, calendarMonth, 1);
-    const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
-    const startDayOfWeek = firstDay.getDay(); 
-    const totalDays = lastDay.getDate();
-
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    daysOfWeek.forEach(dow => {
-      const label = document.createElement("div");
-      label.classList.add("calendar-label");
-      label.textContent = dow;
-      grid.appendChild(label);
+    const firstDay = new Date(calYear, calMonth, 1), lastDay = new Date(calYear, calMonth + 1, 0);
+    const startDOW = firstDay.getDay(), totalDays = lastDay.getDate();
+    ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d => {
+        const lbl = document.createElement("div"); lbl.className = "calendar-label"; lbl.textContent = d; grid.appendChild(lbl);
     });
-
-    for(let i = 0; i < startDayOfWeek; i++) {
-      const blank = document.createElement("div");
-      blank.classList.add("calendar-day");
-      blank.style.background = "transparent";
-      blank.style.cursor = "default";
-      grid.appendChild(blank);
+    for(let i=0; i<startDOW; i++) {
+        const blk = document.createElement("div"); blk.className="calendar-day"; blk.style.cssText="background:transparent;cursor:default;"; grid.appendChild(blk);
     }
-
-    const currentlySelectedDate = document.getElementById("workout-date").value;
-
-    for(let day=1; day <= totalDays; day++) {
-      const dateStr = new Date(calendarYear, calendarMonth, day).toLocaleDateString('en-CA');
-      const dayDiv = document.createElement("div");
-      dayDiv.classList.add("calendar-day");
-      dayDiv.textContent = day;
-
-      if (localStorage.getItem("workout-" + dateStr)) {
-        dayDiv.classList.add("logged");
-      }
-      if (dateStr === new Date().toLocaleDateString('en-CA')) {
-        dayDiv.classList.add("today");
-      }
-      if (dateStr === currentlySelectedDate) {
+    const selDateInp = document.getElementById(config.dateInputId).value;
+    for(let day=1; day<=totalDays; day++) {
+      const dateStr = new Date(calYear, calMonth, day).toLocaleDateString('en-CA');
+      const dayDiv = document.createElement("div"); dayDiv.className = "calendar-day"; dayDiv.textContent = day;
+      if (localStorage.getItem(config.localStoragePrefix + dateStr)) dayDiv.classList.add("logged");
+      if (dateStr === G_TODAY_STRING_CA) dayDiv.classList.add("today");
+      if (dateStr === selDateInp) dayDiv.classList.add("selected");
+      dayDiv.onclick = () => {
+        document.getElementById(config.dateInputId).value = dateStr;
+        document.getElementById(config.textInputId).value = localStorage.getItem(config.localStoragePrefix + dateStr) || "";
+        document.getElementById(config.textInputId).focus();
+        document.querySelectorAll(`#${config.calendarGridId} .calendar-day.selected`).forEach(el => el.classList.remove("selected"));
         dayDiv.classList.add("selected");
-      }
-
-      dayDiv.addEventListener("click", () => {
-        document.getElementById("workout-date").value = dateStr;
-        
-        const savedText = localStorage.getItem("workout-" + dateStr) || "";
-        document.getElementById("workout-text").value = savedText;
-        document.getElementById("workout-text").focus();
-
-        document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
-        dayDiv.classList.add("selected");
-      });
+      };
       grid.appendChild(dayDiv);
     }
     title.textContent = firstDay.toLocaleString(undefined, { month: "long", year: "numeric" });
   }
 
   function handleDateInputChange(event) {
-    const newSelectedDate = event.target.value;
-    if (!newSelectedDate) return;
-
-    updateCalendarSelectionHighlight(newSelectedDate);
-
-    const savedText = localStorage.getItem("workout-" + newSelectedDate) || "";
-    document.getElementById("workout-text").value = savedText;
+    const config = getActiveConfig();
+    if (!event.target.value) return;
+    updateCalendarSelectionHighlight(event.target.value);
+    document.getElementById(config.textInputId).value = localStorage.getItem(config.localStoragePrefix + event.target.value) || "";
   }
 
   function updateCalendarSelectionHighlight(dateStrToSelect) {
-    document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
+    const config = getActiveConfig();
+    const { month: calMonth, year: calYear } = config.calendarState;
+    document.querySelectorAll(`#${config.calendarGridId} .calendar-day.selected`).forEach(el => el.classList.remove("selected"));
     if (!dateStrToSelect) return;
-
-    const dateObj = new Date(dateStrToSelect + "T00:00:00"); 
-    const targetYear = dateObj.getFullYear();
-    const targetMonth = dateObj.getMonth(); 
-    const targetDay = dateObj.getDate();
-
-    if (targetYear === calendarYear && targetMonth === calendarMonth) {
-      const calendarDays = document.querySelectorAll("#calendar-grid .calendar-day");
-      let foundAndSelected = false;
-      for (const dayDiv of calendarDays) {
-        if (dayDiv.textContent === String(targetDay) && !dayDiv.style.background.includes("transparent")) {
-          dayDiv.classList.add("selected");
-          foundAndSelected = true;
-          break; 
-        }
-      }
-      if (!foundAndSelected) {
-          document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
-      }
-    } else {
-        document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
+    const dObj = new Date(dateStrToSelect + "T00:00:00");
+    if (dObj.getFullYear() === calYear && dObj.getMonth() === calMonth) {
+      document.querySelectorAll(`#${config.calendarGridId} .calendar-day`).forEach(dd => {
+        if (dd.textContent == dObj.getDate() && !dd.style.background.includes("transparent")) { dd.classList.add("selected"); }
+      });
     }
   }
-
-
-  document.getElementById("save-btn").addEventListener("click", saveWorkout);
-  document.getElementById("workout-date").addEventListener("change", handleDateInputChange); 
-
-  document.getElementById("export-btn").addEventListener("click", () => {
-    const workouts = [];
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith("workout-")) {
-        workouts.push({ date: key.replace("workout-", ""), details: localStorage.getItem(key) });
-      }
-    });
-    workouts.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    const json = JSON.stringify(workouts, null, 2); 
-
-    const blob = new Blob([json], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
+  
+  function exportData() {
+    const config = getActiveConfig();
+    const entries = [];
+    Object.keys(localStorage).forEach(k => { if (k.startsWith(config.localStoragePrefix)) entries.push({ date: k.replace(config.localStoragePrefix,""), details: localStorage.getItem(k) }); });
+    entries.sort((a,b) => new Date(a.date) - new Date(b.date));
     const a = document.createElement("a");
-    a.href = url;
-    a.download = "workouts.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  });
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(entries, null, 2)], {type:"application/json"}));
+    a.download = `${config.id}-data.json`; a.click(); URL.revokeObjectURL(a.href);
+  }
 
-  document.getElementById("import-file").addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    if (!file) {
-      return;
-    }
-
+  function importData(event) {
+    const config = getActiveConfig();
+    const file = event.target.files[0]; if (!file) return;
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       try {
-        const importedData = JSON.parse(e.target.result);
-
-        if (!Array.isArray(importedData)) {
-          console.error("Import error: JSON is not an array or malformed.");
-          alert("Import failed: The selected file is not a valid workout JSON file."); 
-          return;
+        const data = JSON.parse(e.target.result);
+        if (!Array.isArray(data)) { alert("Import failed: Not a valid JSON array."); return; }
+        if (confirm(`Importing ${config.name} entries will ERASE existing ones. Proceed?`)) { 
+          Object.keys(localStorage).forEach(k => { if (k.startsWith(config.localStoragePrefix)) localStorage.removeItem(k); });
+          let imported=0, skipped=0;
+          data.forEach(item => {
+            if (item.date && item.details && /^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
+              localStorage.setItem(config.localStoragePrefix + item.date, item.details); imported++;
+            } else { skipped++; }
+          });
+          alert(`Import complete: ${imported} imported. ${skipped} skipped.`);
+          initializeActiveTrackerUI();
         }
-
-        if (confirm("Importing new workouts will replace existing ones. Do you want to proceed?")) {
-            Object.keys(localStorage).forEach(key => {
-                if (key.startsWith("workout-")) {
-                    localStorage.removeItem(key);
-                }
-            });
-
-            importedData.forEach(item => {
-                if (item.date && item.details) {
-                    if (/^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
-                        localStorage.setItem("workout-" + item.date, item.details);
-                    } else {
-                        console.warn(`Skipping invalid date format: ${item.date} in import file.`);
-                    }
-                } else {
-                    console.warn("Skipping malformed entry during import:", item);
-                }
-            });
-            loadLog();
-            renderCalendar();
-            document.getElementById("workout-date").value = new Date().toLocaleDateString('en-CA');
-            document.getElementById("workout-text").value = "";
-            updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
-        }
-
-      } catch (error) {
-        console.error("Error parsing JSON file:", error);
-        alert("Import failed: Could not read or parse the JSON file. It might be corrupted or not a valid JSON."); 
-      } finally {
-        event.target.value = ''; 
-      }
+      } catch (err) { alert("Import failed: Could not parse JSON."); } 
+      finally { event.target.value = ''; }
     };
     reader.readAsText(file);
-  });
+  }
 
-  document.getElementById("prev-month").addEventListener("click", () => {
-    calendarMonth--;
-    if (calendarMonth < 0) {
-      calendarMonth = 11;
-      calendarYear--;
-    }
-    renderCalendar();
-    updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
-  });
+  function changeMonth(dir) {
+    const config = getActiveConfig();
+    config.calendarState.month += dir;
+    if (config.calendarState.month < 0) { config.calendarState.month = 11; config.calendarState.year--; }
+    else if (config.calendarState.month > 11) { config.calendarState.month = 0; config.calendarState.year++; }
+    renderCalendar(); updateCalendarSelectionHighlight(document.getElementById(config.dateInputId).value);
+  }
 
-  document.getElementById("next-month").addEventListener("click", () => {
-    calendarMonth++;
-    if (calendarMonth > 11) {
-      calendarMonth = 0;
-      calendarYear++;
-    }
-    renderCalendar();
-    updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
-  });
+  function switchTab(newTabId) {
+    if (activeTrackerId === newTabId) return;
+    const oldConf = getActiveConfig();
+    document.getElementById(oldConf.contentWrapperId).classList.remove('active');
+    document.querySelector(`.tabs-vertical .tab-link[data-tab="${activeTrackerId}"]`).classList.remove('active');
+    containerElement.classList.remove(oldConf.themeClass);
+    activeTrackerId = newTabId;
+    const newConf = getActiveConfig();
+    document.getElementById(newConf.contentWrapperId).classList.add('active');
+    document.querySelector(`.tabs-vertical .tab-link[data-tab="${activeTrackerId}"]`).classList.add('active');
+    containerElement.classList.add(newConf.themeClass);
+    initializeActiveTrackerUI();
+  }
+  
+  function initializeActiveTrackerUI() {
+    const config = getActiveConfig();
+    document.getElementById(config.dateInputId).value = G_TODAY_STRING_CA;
+    document.getElementById(config.textInputId).value = localStorage.getItem(config.localStoragePrefix + G_TODAY_STRING_CA) || "";
+    loadLog(); renderCalendar(); updateCalendarSelectionHighlight(G_TODAY_STRING_CA);
+  }
 
-  // Initialize UI
-  loadLog();
-  renderCalendar();
-  updateCalendarSelectionHighlight(document.getElementById("workout-date").value);
+  document.addEventListener('DOMContentLoaded', () => {
+    containerElement.classList.add(getActiveConfig().themeClass); 
+    document.querySelectorAll('.tabs-vertical .tab-link').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+    Object.values(trackerConfigs).forEach(config => {
+      document.getElementById(config.saveBtnId).addEventListener('click', saveEntry);
+      document.getElementById(config.exportBtnId).addEventListener('click', exportData); 
+      document.getElementById(config.importFileId).addEventListener('change', importData);
+      document.getElementById(config.dateInputId).addEventListener('change', handleDateInputChange);
+      document.getElementById(config.prevMonthBtnId).addEventListener('click', () => changeMonth(-1));
+      document.getElementById(config.nextMonthBtnId).addEventListener('click', () => changeMonth(1));
+    });
+    initializeActiveTrackerUI();
+  });
 </script>
 </body>
 </html>
