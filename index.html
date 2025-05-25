@@ -7,12 +7,12 @@
   <style>
     :root {
       /* Base colors */
-      --background: #121622; /* Overall page background and default content area bg */
-      --main-box-bg: #1E2733; /* Main container and tab bar background */
+      --background: #121622;
+      --main-box-bg: #1E2733; 
       
       /* Specific background shades for tracker content areas */
-      --workout-tracker-content-bg: #11141E; /* Slightly darker/more saturated for Workout */
-      --running-tracker-content-bg: #141926; /* Slightly different for Running */
+      --workout-tracker-content-bg: #11141E; 
+      --running-tracker-content-bg: #141926; 
 
       --text-primary: #E0E0E0;
       --text-secondary: #B0B0B0;
@@ -37,12 +37,11 @@
       --blue-accent-hover: #1E88E5;  
       --blue-text-on-accent: white;
 
-      /* Operational Theme Variables - Default to Workout/Orange */
       --accent-main: var(--orange-accent-main);
       --accent-main-light: var(--orange-accent-light);
       --accent-main-hover: var(--orange-accent-hover);
       --text-on-accent: var(--orange-text-on-accent);
-      --current-tracker-content-background: var(--workout-tracker-content-bg); /* Default to workout */
+      --current-tracker-content-background: var(--workout-tracker-content-bg); 
     }
 
     .container.theme-workout {
@@ -62,7 +61,7 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--background); /* Global page background */
+      background: var(--background); 
       margin: 0;
       padding: 30px 15px;
       display: flex;
@@ -77,7 +76,7 @@
     }
 
     .container {
-      background: var(--main-box-bg); /* Background for the main container shell */
+      background: var(--main-box-bg); 
       max-width: 800px;
       width: 100%;
       border-radius: 12px;
@@ -85,7 +84,8 @@
       display: flex;
       min-height: 600px;
       max-height: calc(100vh - 60px);
-      overflow: hidden;
+      overflow: hidden; 
+      position: relative; 
     }
 
     .tabs-vertical {
@@ -93,9 +93,10 @@
       flex-direction: column;
       width: 180px;
       flex-shrink: 0;
-      background: var(--main-box-bg); /* Tab bar shares main container background */
+      background: var(--main-box-bg); 
       padding: 20px 0;
       box-shadow: inset -5px 0px 5px -5px rgba(0,0,0,0.2);
+      z-index: 5; 
     }
 
     .tab-link {
@@ -113,7 +114,6 @@
     }
 
     .tab-link.active {
-      /* Active tab uses the themed tracker content background */
       background-color: var(--current-tracker-content-background); 
       color: var(--accent-main);
       font-weight: 700;
@@ -124,13 +124,25 @@
       background-color: var(--input-bg);
       color: var(--text-primary);
     }
+    
+    #stats-toggle-btn.tab-link.stats-toggle {
+        margin-top: auto; 
+        border-top: 1px solid var(--border-color);
+        border-left-color: transparent; 
+    }
+
+    #stats-toggle-btn.tab-link.stats-toggle.stats-panel-open {
+        background-color: var(--input-focus-bg); 
+        color: var(--accent-main);
+        border-left-color: var(--accent-main); 
+    }
 
     .tracker-main-content-area {
       flex-grow: 1;
       padding: 15px 30px 25px 30px; 
       overflow-y: auto;
-      /* Tracker content area uses the themed background */
       background-color: var(--current-tracker-content-background); 
+      min-width: 320px; 
       
       scrollbar-width: thin; 
       scrollbar-color: var(--input-focus-bg) var(--current-tracker-content-background); 
@@ -181,7 +193,7 @@
       letter-spacing: 0.6px; 
     }
 
-    input[type="date"], textarea {
+    input[type="date"], textarea, input[type="number"] {
       width: 100%;
       padding: 10px 14px;
       font-size: 0.9rem; 
@@ -206,7 +218,7 @@
         font-weight: 400;
     }
 
-    input[type="date"]:focus, textarea:focus {
+    input[type="date"]:focus, textarea:focus, input[type="number"]:focus {
       border-color: var(--accent-main);
       outline: none;
       background: var(--input-focus-bg);
@@ -216,6 +228,30 @@
         height: 100px; 
         resize: vertical; 
     }
+    
+    .time-inputs-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px; 
+    }
+
+    .time-inputs-container input[type="number"] {
+      width: 65px; 
+      padding: 10px;
+      text-align: center;
+      flex-grow: 1; 
+    }
+    .time-inputs-container span { 
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-left: -4px; 
+      margin-right: 8px; 
+    }
+    .time-inputs-container span:last-child {
+        margin-right: 0;
+    }
+
 
     .buttons-container {
       display: flex;
@@ -378,7 +414,7 @@
     }
 
     .calendar {
-      margin-bottom: 15px; /* Adjusted */
+      margin-bottom: 15px; 
       border-radius: 12px;
       overflow: hidden;
       background: var(--calendar-bg);
@@ -469,9 +505,9 @@
     .calendar-day.today { 
       font-weight: 700;             
       color: var(--text-primary); 
-      background-color: var(--input-bg); /* Ensure standard background */
-      box-shadow: 0 0 0 1.5px var(--text-secondary) inset; 
-      outline-color: transparent;    
+      background-color: var(--input-bg); /* Ensure it uses standard day background */
+      box-shadow: 0 0 0 1.5px var(--text-secondary) inset; /* Neutral subtle inner ring */
+      outline-color: transparent; /* Ensure no other outline unless selected */
     }
 
     .calendar-day.selected {
@@ -479,14 +515,14 @@
       color: var(--accent-main);         
       font-weight: 700;                  
       outline-color: var(--accent-main); 
-      box-shadow: none !important; /* Ensure this overrides today's box-shadow */                   
+      box-shadow: none !important; /* Override today's box-shadow if selected */                   
     }
 
     .calendar-day.logged.selected { 
       background-color: var(--green); 
       color: #FFFFFF;                 
       outline-color: var(--accent-main); 
-      box-shadow: none !important; /* Ensure this overrides today's box-shadow */
+      box-shadow: none !important; /* Ensure selected shadow behavior wins */
     }
 
 
@@ -495,8 +531,8 @@
       visibility: hidden;
       transition: opacity 1.5s ease, visibility 1.5s ease;
       font-weight: 700;
-      margin-top: 12px; /* Adjusted */
-      margin-bottom: 20px; /* Adjusted */
+      margin-top: 12px; 
+      margin-bottom: 20px; 
       text-align: center;
       color: var(--green);
     }
@@ -510,12 +546,119 @@
 
     input[type="file"] { display: none; }
 
+    #stats-panel-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 280px; 
+      height: 100%;
+      background-color: rgba(30, 39, 51, 0.9); 
+      border-left: 1px solid var(--border-color);
+      transform: translateX(100%); 
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      z-index: 100; 
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      color: var(--text-primary);
+      /* Stats Panel Scrollbar Styling */
+      scrollbar-width: thin;
+      scrollbar-color: var(--input-focus-bg) var(--main-box-bg); 
+    }
+
+    #stats-panel-container::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    #stats-panel-container::-webkit-scrollbar-track {
+      background: var(--main-box-bg); 
+      border-radius: 5px;
+    }
+    #stats-panel-container::-webkit-scrollbar-thumb {
+      background-color: var(--input-focus-bg);
+      border-radius: 5px;
+      border: 2px solid var(--main-box-bg); 
+    }
+    #stats-panel-container::-webkit-scrollbar-thumb:hover {
+      background-color: var(--accent-main); 
+    }
+    #stats-panel-container::-webkit-scrollbar-corner {
+      background: var(--main-box-bg);
+    }
+    /* End Stats Panel Scrollbar Styling */
+
+
+    #stats-panel-container.open {
+      transform: translateX(0); 
+      box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+    }
+
+    .stats-panel-content {
+      display: none; 
+    }
+
+    .stats-panel-content.active {
+      display: block;
+    }
+
+    .stats-header {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--accent-main);
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-align: left;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--input-focus-bg);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .stat-item {
+      background-color: var(--input-bg);
+      padding: 12px 15px;
+      border-radius: 6px;
+      text-align: left; 
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 1.2rem; 
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .stats-placeholder {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        text-align: center;
+        margin-top: 30px;
+        border-top: 1px dashed var(--border-color);
+        padding-top: 20px;
+    }
+
+
     @media (max-width: 768px) {
         .container {
             flex-direction: column;
             max-height: none;
             min-height: unset;
         }
+        
         .tabs-vertical {
             flex-direction: row;
             width: 100%;
@@ -535,21 +678,38 @@
             border-left: none;
         }
         .tab-link.active {
-            /* Active tab uses themed tracker content background in responsive too */
             background-color: var(--current-tracker-content-background); 
             color: var(--accent-main);
-            border-left: none; /* Remove left border from vertical style */
-            border-bottom: 4px solid var(--accent-main); /* Add bottom border for horizontal active tab */
+            border-left: none; 
+            border-bottom: 4px solid var(--accent-main); 
             font-weight: 700;
-            margin-right: 0; /* Reset margin */
+            margin-right: 0; 
         }
-        .tab-link:not(:last-child) {
-            border-bottom: none; 
-            border-right: 1px solid var(--border-color); 
+        #stats-toggle-btn.tab-link.stats-toggle { 
+            margin-top: 0;
+            border-top: none;
+            border-left: 1px solid var(--border-color); 
+            flex-grow: 0.5; 
         }
+        #stats-toggle-btn.tab-link.stats-toggle.stats-panel-open {
+            background-color: var(--input-focus-bg); 
+            color: var(--accent-main);
+            border-left-color: var(--border-color); 
+            border-bottom: 4px solid var(--accent-main); 
+        }
+
+        .tab-link:not(:last-child):not(.stats-toggle) { 
+             border-bottom: none; 
+             border-right: 1px solid var(--border-color); 
+        }
+        .tab-link.stats-toggle:not(:last-child) {
+            border-right: 1px solid var(--border-color);
+        }
+
         .tracker-main-content-area {
             padding: 15px; 
             max-height: none;
+            min-width: 0; 
         }
          .tracker-content h2 { 
             margin-top: 20px;            
@@ -584,7 +744,23 @@
       }
       .tab-link { font-size: 0.85rem; }
       .tab-link.active {
-          padding-bottom: calc(12px - 4px); /* Adjust padding to account for border */
+          padding-bottom: calc(12px - 4px); 
+      }
+      #stats-toggle-btn.tab-link.stats-toggle.stats-panel-open {
+          padding-bottom: calc(12px - 4px); 
+      }
+      #stats-panel-container { 
+            width: 100%; 
+            height: 75%; 
+            bottom: 0;
+            top: auto; 
+            transform: translateY(100%); 
+            border-left: none;
+            border-top: 1px solid var(--border-color);
+      }
+      #stats-panel-container.open {
+          transform: translateY(0);
+          box-shadow: 0 -5px 15px rgba(0,0,0,0.3); 
       }
     }
   </style>
@@ -594,6 +770,9 @@
   <div class="tabs-vertical">
     <button class="tab-link active" data-tab="workout">Workout Tracker</button>
     <button class="tab-link" data-tab="running">Running Tracker</button>
+    <button id="stats-toggle-btn" class="tab-link stats-toggle" aria-expanded="false" aria-controls="stats-panel-container">
+        📊 Statistics
+    </button>
   </div>
 
   <div class="tracker-main-content-area">
@@ -634,8 +813,22 @@
       </div>
       <label for="running-date">Date:</label>
       <input type="date" id="running-date" />
-      <label for="running-text">Run Details:</label>
-      <textarea id="running-text" placeholder="E.g., Distance: 5km, Time: 25min, Pace: 5:00/km"></textarea>
+      
+      <label for="running-distance">Distance (km):</label>
+      <input type="number" id="running-distance" placeholder="e.g., 5.3" step="0.01" min="0">
+
+      <label>Time Taken:</label>
+      <div class="time-inputs-container">
+        <input type="number" id="running-time-hours" placeholder="HH" min="0" title="Hours">
+        <span>h</span>
+        <input type="number" id="running-time-minutes" placeholder="MM" min="0" max="59" title="Minutes">
+        <span>m</span>
+        <input type="number" id="running-time-seconds" placeholder="SS" min="0" max="59" title="Seconds">
+        <span>s</span>
+      </div>
+
+      <label for="running-notes">Notes (Optional):</label>
+      <textarea id="running-notes" placeholder="e.g., Felt strong, new route, etc."></textarea>
       
       <div class="buttons-container">
         <button id="running-save-btn">Save Run</button>
@@ -649,6 +842,89 @@
       <div id="running-log" class="log-display"></div>
     </div>
   </div> 
+
+  <div id="stats-panel-container" aria-hidden="true">
+    <div id="workout-stats-panel" class="stats-panel-content" data-tracker="workout">
+      <h3 class="stats-header">Workout Statistics</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Workouts:</span>
+          <span id="workout-total-count" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">This Month:</span>
+          <span id="workout-this-month-count" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Longest Streak:</span>
+          <span id="workout-streak" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Most Frequent Day:</span>
+          <span id="workout-freq-day" class="stat-value">N/A</span>
+        </div>
+      </div>
+      <p class="stats-placeholder">More detailed workout stats coming soon!</p>
+    </div>
+    <div id="running-stats-panel" class="stats-panel-content" data-tracker="running">
+      <h3 class="stats-header">Running Statistics</h3>
+       <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Runs:</span>
+          <span id="running-total-count" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">This Month:</span>
+          <span id="running-this-month-count" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Total Distance:</span>
+          <span id="running-total-dist" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Avg. Distance:</span>
+          <span id="running-avg-dist" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Total Time:</span>
+          <span id="running-total-time" class="stat-value">N/A</span>
+        </div>
+         <div class="stat-item">
+          <span class="stat-label">Avg. Pace:</span>
+          <span id="running-avg-pace" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Longest Run (Dist):</span>
+          <span id="running-longest-dist" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Longest Run (Time):</span>
+          <span id="running-longest-duration" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fastest 1km Pace:</span>
+          <span id="running-pb-1k" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fastest 5km Pace:</span>
+          <span id="running-pb-5k" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fastest 10km Pace:</span>
+          <span id="running-pb-10k" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fastest HM Pace:</span>
+          <span id="running-pb-hm" class="stat-value">N/A</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fastest Mara Pace:</span>
+          <span id="running-pb-mara" class="stat-value">N/A</span>
+        </div>
+      </div>
+      <p class="stats-placeholder">More detailed running stats coming soon!</p>
+    </div>
+  </div>
 
 </div> 
 
@@ -664,7 +940,7 @@
       logTitle: "Workout Log",
       localStoragePrefix: "workout-",
       dateInputId: "workout-date",
-      textInputId: "workout-text",
+      textInputId: "workout-text", 
       logId: "workout-log",
       calendarGridId: "workout-calendar-grid",
       calendarTitleId: "workout-calendar-title",
@@ -675,8 +951,6 @@
       importFileId: "workout-import-file",
       successMessageId: "workout-success-message",
       contentWrapperId: "workout-tracker-content",
-      placeholder: "E.g., Squats: 3 sets x 8-10 reps @ 100kg",
-      saveButtonText: "Save Workout",
       calendarState: { month: G_TODAY_DATE.getMonth(), year: G_TODAY_DATE.getFullYear() }
     },
     running: {
@@ -686,7 +960,11 @@
       logTitle: "Running Log",
       localStoragePrefix: "running-",
       dateInputId: "running-date",
-      textInputId: "running-text",
+      distanceInputId: "running-distance",
+      timeHoursInputId: "running-time-hours",
+      timeMinutesInputId: "running-time-minutes",
+      timeSecondsInputId: "running-time-seconds",
+      notesInputId: "running-notes",
       logId: "running-log",
       calendarGridId: "running-calendar-grid",
       calendarTitleId: "running-calendar-title",
@@ -697,12 +975,54 @@
       importFileId: "running-import-file",
       successMessageId: "running-success-message",
       contentWrapperId: "running-tracker-content",
-      placeholder: "E.g., Distance: 5km, Time: 25min, Pace: 5:00/km",
-      saveButtonText: "Save Run",
       calendarState: { month: G_TODAY_DATE.getMonth(), year: G_TODAY_DATE.getFullYear() }
     }
   };
-  const containerElement = document.querySelector('.container'); 
+  const mainContainerElement = document.querySelector('.container'); 
+  const statsToggleBtn = document.getElementById('stats-toggle-btn');
+  const statsPanelContainer = document.getElementById('stats-panel-container');
+
+  function parseTimeToSeconds(h, m, s) {
+      return (parseInt(h || 0) * 3600) + (parseInt(m || 0) * 60) + (parseInt(s || 0));
+  }
+
+  function formatSecondsToTimeObj(totalSeconds) {
+      const h = Math.floor(totalSeconds / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = Math.round(totalSeconds % 60); 
+      return { h, m, s };
+  }
+
+  function formatTimeObjToString(timeObj) {
+      let parts = [];
+      if (timeObj.h > 0) parts.push(`${timeObj.h}h`);
+      if (timeObj.m > 0 || timeObj.h > 0 ) { // Show minutes if hours are shown or if minutes > 0
+        parts.push(`${String(timeObj.m).padStart(timeObj.h > 0 ? 2 : 1,'0')}m`);
+      }
+      // Always show seconds, padded if other components exist or if it's the only component needing padding for "0s"
+      if (parts.length > 0 || timeObj.s > 0 || (timeObj.h === 0 && timeObj.m === 0)) {
+          parts.push(`${String(timeObj.s).padStart(2,'0')}s`);
+      }
+      if (parts.length === 0 && timeObj.h === 0 && timeObj.m === 0 && timeObj.s === 0) return "0s";
+      if (parts.length === 0) return "0s"; // Fallback, should ideally show 0s if all are zero initially
+      return parts.join(' ');
+  }
+  
+  function formatTotalSecondsToHHMMSS(totalSeconds) {
+      const timeObj = formatSecondsToTimeObj(totalSeconds);
+      return `${String(timeObj.h).padStart(2,'0')}:${String(timeObj.m).padStart(2,'0')}:${String(timeObj.s).padStart(2,'0')}`;
+  }
+
+
+  function calculatePace(totalSeconds, distance) {
+      if (!distance || distance <= 0 || !totalSeconds || totalSeconds < 0) return { min: 0, s: 0, perKmStr: "N/A" }; 
+      if (totalSeconds === 0 && distance > 0) return { min: 0, s: 0, perKmStr: "0:00/km" }; 
+      const secsPerKm = Math.round(totalSeconds / distance);
+      const paceMin = Math.floor(secsPerKm / 60);
+      const paceSec = secsPerKm % 60;
+      return { min: paceMin, s: paceSec, perKmStr: `${String(paceMin)}:${String(paceSec).padStart(2,'0')}/km` };
+  }
+
 
   function getActiveConfig() { return trackerConfigs[activeTrackerId]; }
 
@@ -714,19 +1034,291 @@
     requestAnimationFrame(() => { msgElement.classList.remove("instant-show"); });
     setTimeout(() => { msgElement.classList.remove("show"); }, 2000); 
   }
-
-  function saveEntry() {
-    const config = getActiveConfig();
-    const date = document.getElementById(config.dateInputId).value;
-    const text = document.getElementById(config.textInputId).value.trim();
-    if (!date || !text) { alert("Please enter both a date and details."); return; }
-    if (date > G_TODAY_STRING_CA) { alert("You can't log entries for future dates."); return; }
-    localStorage.setItem(config.localStoragePrefix + date, text);
-    document.getElementById(config.textInputId).value = "";
-    loadLog(); renderCalendar(); updateCalendarSelectionHighlight(date); showSaveMessage();
+  
+  function handleClickOutsideStatsPanel(event) {
+    if (statsPanelContainer.classList.contains('open') &&
+        !statsPanelContainer.contains(event.target) &&
+        event.target !== statsToggleBtn && 
+        !statsToggleBtn.contains(event.target)) {
+        hideStatsPanel();
+    }
   }
 
-  function deleteEntry(date) { 
+  function showActiveStatsPanel() {
+    if (!statsPanelContainer.classList.contains('open') && statsToggleBtn.getAttribute('aria-expanded') === 'false') {
+        return;
+    }
+
+    const config = getActiveConfig();
+    document.querySelectorAll('.stats-panel-content').forEach(panel => {
+        panel.classList.remove('active');
+    });
+
+    const activeStatsPanel = document.getElementById(config.id + '-stats-panel');
+    if (activeStatsPanel) {
+        activeStatsPanel.classList.add('active');
+        calculateAndDisplayStats(config.id);
+    }
+    statsToggleBtn.setAttribute('aria-expanded', 'true');
+    statsPanelContainer.setAttribute('aria-hidden', 'false');
+    statsToggleBtn.classList.add('stats-panel-open');
+
+    setTimeout(() => { 
+        document.addEventListener('mousedown', handleClickOutsideStatsPanel, true);
+    }, 0);
+  }
+
+  function hideStatsPanel() {
+    statsPanelContainer.classList.remove('open');
+    statsToggleBtn.setAttribute('aria-expanded', 'false');
+    statsPanelContainer.setAttribute('aria-hidden', 'true');
+    statsToggleBtn.classList.remove('stats-panel-open');
+    document.querySelectorAll('.stats-panel-content').forEach(panel => {
+        panel.classList.remove('active');
+    });
+    document.removeEventListener('mousedown', handleClickOutsideStatsPanel, true);
+  }
+  
+  function calculateAndDisplayStats(trackerId) {
+    const config = trackerConfigs[trackerId];
+    if (!config) return;
+
+    let totalCount = 0;
+    let thisMonthCount = 0;
+    const workoutDates = []; 
+    let totalDistance = 0; 
+    let totalTimeOverallSeconds = 0; 
+
+    const currentJSDate = new Date(); 
+    const currentYearMonthStr = currentJSDate.getFullYear() + '-' + String(currentJSDate.getMonth() + 1).padStart(2, '0');
+
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(config.localStoragePrefix)) {
+            totalCount++;
+            const entryDate = key.replace(config.localStoragePrefix, ""); 
+            if (entryDate.startsWith(currentYearMonthStr)) {
+                thisMonthCount++;
+            }
+            
+            if (config.id === 'workout') {
+                workoutDates.push(entryDate);
+            } else if (config.id === 'running') {
+                try {
+                    const rawEntry = localStorage.getItem(key);
+                    if (rawEntry) {
+                        const runData = JSON.parse(rawEntry);
+                        if (runData && typeof runData.distance === 'number' && runData.distance > 0 &&
+                            typeof runData.totalSeconds === 'number' && runData.totalSeconds >= 0) { // Allow 0 seconds for total time
+                            totalDistance += runData.distance;
+                            totalTimeOverallSeconds += runData.totalSeconds;
+                        }
+                    }
+                } catch(e) { console.warn("Skipping corrupted run data for overall stats:", key, e); }
+            }
+        }
+    });
+
+    document.getElementById(trackerId + '-total-count').textContent = totalCount;
+    document.getElementById(trackerId + '-this-month-count').textContent = thisMonthCount;
+
+    if (config.id === 'running') {
+        const avgDistance = totalCount > 0 ? (totalDistance / totalCount).toFixed(2) : "0.00";
+        const avgPaceData = (totalCount > 0 && totalDistance > 0 && totalTimeOverallSeconds > 0) ? calculatePace(totalTimeOverallSeconds, totalDistance) : { perKmStr: "N/A" };
+        const totalTimeFormatted = formatTimeObjToString(formatSecondsToTimeObj(totalTimeOverallSeconds));
+
+        document.getElementById('running-total-dist').textContent = totalDistance.toFixed(2) + " km";
+        document.getElementById('running-avg-dist').textContent = avgDistance + " km";
+        document.getElementById('running-avg-pace').textContent = avgPaceData.perKmStr;
+        document.getElementById('running-total-time').textContent = totalTimeFormatted;
+
+        // --- PERSONAL BESTS CALCULATION for RUNNING ---
+        let longestRunDistance = 0;
+        let longestRunDurationSeconds = 0;
+        
+        const pbTargets = {
+            '1k': { threshold: 1, bestPaceSecKm: Infinity, date: null, runDesc: "" },
+            '5k': { threshold: 5, bestPaceSecKm: Infinity, date: null, runDesc: "" },
+            '10k': { threshold: 10, bestPaceSecKm: Infinity, date: null, runDesc: "" },
+            'hm': { threshold: 21.0975, bestPaceSecKm: Infinity, date: null, runDesc: "" }, 
+            'mara': { threshold: 42.195, bestPaceSecKm: Infinity, date: null, runDesc: "" } 
+        };
+        
+        const allRunsForPBs = []; 
+         Object.keys(localStorage).forEach(key => {
+            if (key.startsWith(config.localStoragePrefix)) {
+                try {
+                    const rawEntry = localStorage.getItem(key);
+                    if (rawEntry) {
+                        const runData = JSON.parse(rawEntry);
+                        if (runData && typeof runData.distance === 'number' && runData.distance > 0 &&
+                            typeof runData.totalSeconds === 'number' && runData.totalSeconds > 0) { // PBs need positive time
+                            runData.date = key.replace(config.localStoragePrefix, "");
+                            allRunsForPBs.push(runData);
+                        }
+                    }
+                } catch (e) { /* ignore corrupted entries for PB specifics */ }
+            }
+        });
+
+        if (allRunsForPBs.length > 0) {
+            allRunsForPBs.forEach(run => {
+                if (run.distance > longestRunDistance) {
+                    longestRunDistance = run.distance;
+                }
+                if (run.totalSeconds > longestRunDurationSeconds) {
+                    longestRunDurationSeconds = run.totalSeconds;
+                }
+
+                const currentRunPaceSecPerKm = run.totalSeconds / run.distance;
+                for (const pbKey in pbTargets) {
+                    if (run.distance >= pbTargets[pbKey].threshold) {
+                        if (currentRunPaceSecPerKm < pbTargets[pbKey].bestPaceSecKm) {
+                            pbTargets[pbKey].bestPaceSecKm = currentRunPaceSecPerKm;
+                            pbTargets[pbKey].date = run.date; // Optional: for tooltips
+                            pbTargets[pbKey].runDesc = `${run.distance.toFixed(1)}km run`; // Optional: for tooltips
+                        }
+                    }
+                }
+            });
+        }
+
+        const longestDistEl = document.getElementById('running-longest-dist');
+        if (longestDistEl) longestDistEl.textContent = longestRunDistance > 0 ? `${longestRunDistance.toFixed(2)} km` : "N/A";
+        
+        const longestDurationEl = document.getElementById('running-longest-duration');
+        if (longestDurationEl) longestDurationEl.textContent = longestRunDurationSeconds > 0 ? formatTimeObjToString(formatSecondsToTimeObj(longestRunDurationSeconds)) : "N/A";
+
+        for (const pbKey in pbTargets) {
+            const el = document.getElementById(`running-pb-${pbKey}`);
+            if (el) {
+                if (pbTargets[pbKey].bestPaceSecKm !== Infinity) {
+                    const paceFormatted = calculatePace(pbTargets[pbKey].bestPaceSecKm, 1).perKmStr;
+                    el.textContent = `${paceFormatted}`;
+                } else {
+                    el.textContent = "N/A";
+                }
+            }
+        }
+
+    } else if (config.id === 'workout') {
+        let longestStreak = 0;
+        let mostFrequentDayStr = "N/A";
+
+        if (workoutDates.length > 0) {
+            const uniqueSortedDates = [...new Set(workoutDates)]
+                .map(ds => new Date(ds + "T00:00:00"))
+                .sort((a, b) => a - b);
+
+            if (uniqueSortedDates.length > 0) {
+                let currentStreak = 1;
+                longestStreak = 1;
+                for (let i = 1; i < uniqueSortedDates.length; i++) {
+                    const prevDate = uniqueSortedDates[i-1];
+                    const currentDate = uniqueSortedDates[i];
+                    const expectedPrevPlusOne = new Date(prevDate);
+                    expectedPrevPlusOne.setDate(prevDate.getDate() + 1);
+
+                    if (currentDate.getFullYear() === expectedPrevPlusOne.getFullYear() &&
+                        currentDate.getMonth() === expectedPrevPlusOne.getMonth() &&
+                        currentDate.getDate() === expectedPrevPlusOne.getDate()) {
+                        currentStreak++;
+                    } else {
+                        currentStreak = 1; 
+                    }
+                    if (currentStreak > longestStreak) {
+                        longestStreak = currentStreak;
+                    }
+                }
+            }
+
+            const dayCounts = [0, 0, 0, 0, 0, 0, 0]; 
+            const dayNames = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+            uniqueSortedDates.forEach(date => {
+                dayCounts[date.getDay()]++;
+            });
+
+            let maxDayCount = 0;
+            let frequentDayIndex = -1;
+            for (let i = 0; i < dayCounts.length; i++) {
+                if (dayCounts[i] > maxDayCount) {
+                    maxDayCount = dayCounts[i];
+                    frequentDayIndex = i;
+                }
+            }
+            if (frequentDayIndex !== -1 && maxDayCount > 0) { 
+                mostFrequentDayStr = dayNames[frequentDayIndex];
+            } else {
+                 mostFrequentDayStr = "---";
+            }
+        } else {
+             longestStreak = 0;
+             mostFrequentDayStr = "---";
+        }
+        document.getElementById('workout-streak').textContent = longestStreak > 0 ? `${longestStreak} day(s)` : "0 days";
+        document.getElementById('workout-freq-day').textContent = mostFrequentDayStr;
+    }
+  }
+
+  // --- Original Data Handling Functions (to be wrapped) ---
+  const __originalSaveEntry = function() { 
+    const config = getActiveConfig();
+    const date = document.getElementById(config.dateInputId).value;
+    
+    if (!date) { alert("Please enter a date."); return false; } 
+    if (date > G_TODAY_STRING_CA) { alert("You can't log entries for future dates."); return false; }
+
+    if (config.id === 'running') {
+        const distanceEl = document.getElementById(config.distanceInputId);
+        const hoursEl = document.getElementById(config.timeHoursInputId);
+        const minutesEl = document.getElementById(config.timeMinutesInputId);
+        const secondsEl = document.getElementById(config.timeSecondsInputId);
+        const notesEl = document.getElementById(config.notesInputId);
+
+        const distance = parseFloat(distanceEl.value);
+        const hours = parseInt(hoursEl.value || 0);
+        const minutes = parseInt(minutesEl.value || 0);
+        const seconds = parseInt(secondsEl.value || 0);
+        const notes = notesEl.value.trim();
+
+        if (isNaN(distance) || distance <= 0) {
+            alert("Please enter a valid distance (must be greater than 0)."); return false;
+        }
+        if ( (hours < 0) || (minutes < 0 || minutes > 59) || (seconds < 0 || seconds > 59) ) {
+            alert("Please enter valid hours (>=0), minutes (0-59), and seconds (0-59)."); return false;
+        }
+        const totalSeconds = parseTimeToSeconds(hours, minutes, seconds);
+         if (totalSeconds <= 0 && distance > 0) { 
+            alert("Please enter a valid time (must be greater than 0 seconds if distance is logged)."); return false;
+        }
+
+        const paceData = calculatePace(totalSeconds, distance);
+
+        const runData = {
+            distance: distance,
+            time: { h: hours, m: minutes, s: seconds },
+            totalSeconds: totalSeconds,
+            pace: paceData, 
+            notes: notes
+        };
+        localStorage.setItem(config.localStoragePrefix + date, JSON.stringify(runData));
+        
+        distanceEl.value = "";
+        hoursEl.value = "";
+        minutesEl.value = "";
+        secondsEl.value = "";
+        notesEl.value = "";
+    } else { 
+        const text = document.getElementById(config.textInputId).value.trim();
+        if (!text) { alert("Please enter workout details."); return false; }
+        localStorage.setItem(config.localStoragePrefix + date, text);
+        document.getElementById(config.textInputId).value = "";
+    }
+    
+    loadLog(); renderCalendar(); updateCalendarSelectionHighlight(date); showSaveMessage();
+    return true; 
+  };
+
+  const __originalDeleteEntry = function(date) { 
     const config = getActiveConfig();
     localStorage.removeItem(config.localStoragePrefix + date);
     loadLog(); 
@@ -734,10 +1326,102 @@
     const currentDateInputVal = document.getElementById(config.dateInputId).value;
     if(currentDateInputVal === date) {
         document.getElementById(config.dateInputId).value = G_TODAY_STRING_CA;
-        document.getElementById(config.textInputId).value = "";
+        if (config.id === 'running') {
+            document.getElementById(config.distanceInputId).value = "";
+            document.getElementById(config.timeHoursInputId).value = "";
+            document.getElementById(config.timeMinutesInputId).value = "";
+            document.getElementById(config.timeSecondsInputId).value = "";
+            document.getElementById(config.notesInputId).value = "";
+        } else {
+            document.getElementById(config.textInputId).value = "";
+        }
         updateCalendarSelectionHighlight(G_TODAY_STRING_CA);
     }
+  };
+
+  const __originalImportData = function(event) { 
+     const config = getActiveConfig();
+     const file = event.target.files[0]; if (!file) return;
+     const reader = new FileReader();
+     reader.onload = e => {
+       let importSuccessful = false;
+       try {
+         const data = JSON.parse(e.target.result);
+         if (!Array.isArray(data)) { alert("Import failed: Not a valid JSON array."); return; }
+         if (confirm(`Importing ${config.name} entries will ERASE existing ones. Proceed?`)) { 
+           Object.keys(localStorage).forEach(k => { if (k.startsWith(config.localStoragePrefix)) localStorage.removeItem(k); });
+           let imported=0, skipped=0;
+           data.forEach(item => {
+             let isValidEntry = false;
+             let dataToStore = item; 
+             if (config.id === 'running') {
+                isValidEntry = item.date && typeof item.distance === 'number' && item.time && 
+                               (typeof item.time.h === 'number' || typeof item.time.h === 'undefined' || item.time.h === null || item.time.h === "") && 
+                               (typeof item.time.m === 'number' || typeof item.time.m === 'undefined' || item.time.m === null || item.time.m === "") &&
+                               (typeof item.time.s === 'number' || typeof item.time.s === 'undefined' || item.time.s === null || item.time.s === "") &&
+                               /^\d{4}-\d{2}-\d{2}$/.test(item.date);
+                if (isValidEntry) {
+                    const normalizedTime = {
+                        h: parseInt(item.time.h || 0),
+                        m: parseInt(item.time.m || 0),
+                        s: parseInt(item.time.s || 0)
+                    };
+                    const totalSeconds = parseTimeToSeconds(normalizedTime.h, normalizedTime.m, normalizedTime.s);
+                    dataToStore = { 
+                        distance: item.distance,
+                        time: normalizedTime,
+                        totalSeconds: totalSeconds,
+                        pace: calculatePace(totalSeconds, item.distance),
+                        notes: item.notes || ""
+                    };
+                    dataToStore = JSON.stringify(dataToStore);
+                }
+             } else { 
+                isValidEntry = item.date && typeof item.details === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(item.date);
+                if(isValidEntry) dataToStore = item.details; 
+             }
+
+             if (isValidEntry) {
+               localStorage.setItem(config.localStoragePrefix + item.date, dataToStore); 
+               imported++;
+             } else { 
+                 console.warn("Skipping invalid or malformed entry during import:", item);
+                 skipped++; 
+             }
+           });
+           alert(`Import complete: ${imported} imported. ${skipped} skipped.`);
+           initializeActiveTrackerUI(); 
+           importSuccessful = true; 
+         }
+       } catch (err) { 
+           console.error("Error during import:", err);
+           alert("Import failed: Could not parse JSON file or file content is invalid."); 
+        } 
+       finally { 
+           event.target.value = ''; 
+           if (importSuccessful && statsPanelContainer.classList.contains('open')) { 
+             calculateAndDisplayStats(getActiveConfig().id);
+           }
+        }
+     };
+     reader.readAsText(file);
+  };
+
+  // Wrapped functions
+  function saveEntry() {
+    const success = __originalSaveEntry.apply(this, arguments);
+    if (success && statsPanelContainer.classList.contains('open')) {
+        calculateAndDisplayStats(getActiveConfig().id);
+    }
   }
+  function deleteEntry(date) {
+    __originalDeleteEntry.apply(this, arguments);
+    if (statsPanelContainer.classList.contains('open')) {
+        calculateAndDisplayStats(getActiveConfig().id);
+    }
+  }
+  const importData = __originalImportData;
+
 
   function loadLog() {
     const config = getActiveConfig();
@@ -758,7 +1442,32 @@
     const entries = [];
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith(config.localStoragePrefix)) {
-        entries.push({ date: key.replace(config.localStoragePrefix, ""), entry: localStorage.getItem(key) });
+        let entryData;
+        const rawEntry = localStorage.getItem(key);
+        if (config.id === 'running') {
+            try {
+                entryData = JSON.parse(rawEntry);
+                if (typeof entryData.distance !== 'number' || typeof entryData.time !== 'object' || 
+                    typeof entryData.time.h !== 'number' || typeof entryData.time.m !== 'number' || typeof entryData.time.s !== 'number' ||
+                    typeof entryData.totalSeconds !== 'number' || typeof entryData.pace !== 'object') {
+                    console.warn("Attempting to fix incomplete running data structure for display:", key, entryData);
+                    entryData.time = entryData.time || {h:0,m:0,s:0};
+                    entryData.time.h = entryData.time.h || 0;
+                    entryData.time.m = entryData.time.m || 0;
+                    entryData.time.s = entryData.time.s || 0;
+                    entryData.totalSeconds = entryData.totalSeconds || parseTimeToSeconds(entryData.time.h, entryData.time.m, entryData.time.s);
+                    entryData.distance = entryData.distance || 0;
+                    entryData.pace = entryData.pace || calculatePace(entryData.totalSeconds, entryData.distance);
+                    entryData.notes = entryData.notes || "";
+                }
+            } catch (e) {
+                console.error("Failed to parse running log entry for display:", key, rawEntry, e);
+                entryData = { error: "Corrupted data", originalData: rawEntry };
+            }
+        } else { 
+            entryData = rawEntry; 
+        }
+        entries.push({ date: key.replace(config.localStoragePrefix, ""), entry: entryData });
       }
     });
     entries.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -807,7 +1516,37 @@
           const entryDiv = document.createElement("div");
           entryDiv.classList.add("entry");
           const strong = document.createElement("strong"); strong.textContent = date; 
-          const textNode = document.createElement("div"); textNode.innerHTML = entry.replace(/\n/g, "<br>");
+          const textNode = document.createElement("div");
+          
+          if (config.id === 'running') {
+              const runData = entry; 
+              if (runData.error) {
+                  textNode.innerHTML = `<strong>Error:</strong> Could not display run data. <pre style="white-space: pre-wrap; word-break: break-all; color: #ff8a80;">${runData.originalData || ""}</pre>`;
+              } else if (runData && runData.time && runData.pace) { 
+                  const timeStr = formatTimeObjToString(runData.time);
+                  const paceStr = runData.pace.perKmStr;
+                  
+                  let displayText = `<strong>${runData.distance || 'N/A'} km</strong> in ${timeStr}`;
+                  if (paceStr && paceStr !== "N/A") {
+                      displayText += ` (Pace: ${paceStr})`;
+                  }
+                  if (runData.notes) {
+                      displayText += `<br><em>Notes:</em> ${runData.notes.replace(/\n/g, "<br>")}`;
+                  }
+                  textNode.innerHTML = displayText;
+              } else {
+                  textNode.innerHTML = `<strong>Error:</strong> Incomplete or invalid run data structure for display.`;
+                  textNode.style.color = "#ff8a80";
+              }
+          } else { 
+              if (typeof entry === 'string') {
+                  textNode.innerHTML = entry.replace(/\n/g, "<br>");
+              } else { 
+                  textNode.innerHTML = "Error: Invalid workout data format.";
+                  textNode.style.color = "#ff8a80";
+              }
+          }
+
           const deleteBtn = document.createElement("button");
           deleteBtn.className = "delete-btn"; deleteBtn.textContent = "Delete";
           deleteBtn.setAttribute('aria-label', `Delete entry for ${date}`); 
@@ -844,13 +1583,41 @@
     for(let day=1; day<=totalDays; day++) {
       const dateStr = new Date(calYear, calMonth, day).toLocaleDateString('en-CA');
       const dayDiv = document.createElement("div"); dayDiv.className = "calendar-day"; dayDiv.textContent = day;
-      if (localStorage.getItem(config.localStoragePrefix + dateStr)) dayDiv.classList.add("logged");
-      if (dateStr === G_TODAY_STRING_CA) dayDiv.classList.add("today");
+      const entryExists = localStorage.getItem(config.localStoragePrefix + dateStr);
+      if (entryExists) dayDiv.classList.add("logged");
+      if (dateStr === G_TODAY_STRING_CA && !entryExists) dayDiv.classList.add("today"); 
       if (dateStr === selDateInp) dayDiv.classList.add("selected");
+      
       dayDiv.onclick = () => {
         document.getElementById(config.dateInputId).value = dateStr;
-        document.getElementById(config.textInputId).value = localStorage.getItem(config.localStoragePrefix + dateStr) || "";
-        document.getElementById(config.textInputId).focus();
+        const savedEntryOnClick = localStorage.getItem(config.localStoragePrefix + dateStr);
+        let focusElId;
+        if (config.id === 'running') {
+            const distanceEl = document.getElementById(config.distanceInputId);
+            const hoursEl = document.getElementById(config.timeHoursInputId);
+            const minutesEl = document.getElementById(config.timeMinutesInputId);
+            const secondsEl = document.getElementById(config.timeSecondsInputId);
+            const notesEl = document.getElementById(config.notesInputId);
+
+            distanceEl.value = ""; hoursEl.value = ""; minutesEl.value = ""; secondsEl.value = ""; notesEl.value = "";
+            focusElId = config.distanceInputId;
+            if (savedEntryOnClick) {
+                try {
+                    const runData = JSON.parse(savedEntryOnClick);
+                    distanceEl.value = runData.distance || "";
+                    hoursEl.value = runData.time ? (runData.time.h || "") : "";
+                    minutesEl.value = runData.time ? (runData.time.m || "") : "";
+                    secondsEl.value = runData.time ? (runData.time.s || "") : "";
+                    notesEl.value = runData.notes || "";
+                } catch(e) { console.error("Error parsing run data on day click", e); }
+            }
+        } else {
+             document.getElementById(config.textInputId).value = savedEntryOnClick || "";
+             focusElId = config.textInputId;
+        }
+        if (document.getElementById(focusElId)) { 
+            document.getElementById(focusElId).focus();
+        }
         document.querySelectorAll(`#${config.calendarGridId} .calendar-day.selected`).forEach(el => el.classList.remove("selected"));
         dayDiv.classList.add("selected");
       };
@@ -861,9 +1628,32 @@
 
   function handleDateInputChange(event) {
     const config = getActiveConfig();
-    if (!event.target.value) return;
-    updateCalendarSelectionHighlight(event.target.value);
-    document.getElementById(config.textInputId).value = localStorage.getItem(config.localStoragePrefix + event.target.value) || "";
+    const newSelectedDate = event.target.value;
+    if (!newSelectedDate) return;
+    updateCalendarSelectionHighlight(newSelectedDate);
+    
+    const savedEntry = localStorage.getItem(config.localStoragePrefix + newSelectedDate);
+    if (config.id === 'running') {
+        const distanceEl = document.getElementById(config.distanceInputId);
+        const hoursEl = document.getElementById(config.timeHoursInputId);
+        const minutesEl = document.getElementById(config.timeMinutesInputId);
+        const secondsEl = document.getElementById(config.timeSecondsInputId);
+        const notesEl = document.getElementById(config.notesInputId);
+
+        distanceEl.value = ""; hoursEl.value = ""; minutesEl.value = ""; secondsEl.value = ""; notesEl.value = "";
+        if (savedEntry) {
+            try {
+                const runData = JSON.parse(savedEntry);
+                distanceEl.value = runData.distance || "";
+                hoursEl.value = runData.time ? (runData.time.h || "") : "";
+                minutesEl.value = runData.time ? (runData.time.m || "") : "";
+                secondsEl.value = runData.time ? (runData.time.s || "") : "";
+                notesEl.value = runData.notes || "";
+            } catch(e) { console.error("Error parsing run data on date input change", e); }
+        }
+    } else {
+         document.getElementById(config.textInputId).value = savedEntry || "";
+    }
   }
 
   function updateCalendarSelectionHighlight(dateStrToSelect) {
@@ -882,36 +1672,26 @@
   function exportData() {
     const config = getActiveConfig();
     const entries = [];
-    Object.keys(localStorage).forEach(k => { if (k.startsWith(config.localStoragePrefix)) entries.push({ date: k.replace(config.localStoragePrefix,""), details: localStorage.getItem(k) }); });
+    Object.keys(localStorage).forEach(k => { 
+        if (k.startsWith(config.localStoragePrefix)) {
+            let dataToPush;
+            const rawEntry = localStorage.getItem(k);
+            if (config.id === 'running') { 
+                try { dataToPush = JSON.parse(rawEntry); } 
+                catch (e) { 
+                    console.warn(`Corrupted running entry for ${k}, exporting raw with error flag.`);
+                    dataToPush = {details_error_corrupted: rawEntry }; 
+                }
+            } else { 
+                dataToPush = {details: rawEntry}; 
+            }
+            entries.push({ date: k.replace(config.localStoragePrefix,""), ...dataToPush });
+        }
+    });
     entries.sort((a,b) => new Date(a.date) - new Date(b.date));
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(entries, null, 2)], {type:"application/json"}));
     a.download = `${config.id}-data.json`; a.click(); URL.revokeObjectURL(a.href);
-  }
-
-  function importData(event) {
-    const config = getActiveConfig();
-    const file = event.target.files[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      try {
-        const data = JSON.parse(e.target.result);
-        if (!Array.isArray(data)) { alert("Import failed: Not a valid JSON array."); return; }
-        if (confirm(`Importing ${config.name} entries will ERASE existing ones. Proceed?`)) { 
-          Object.keys(localStorage).forEach(k => { if (k.startsWith(config.localStoragePrefix)) localStorage.removeItem(k); });
-          let imported=0, skipped=0;
-          data.forEach(item => {
-            if (item.date && item.details && /^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
-              localStorage.setItem(config.localStoragePrefix + item.date, item.details); imported++;
-            } else { skipped++; }
-          });
-          alert(`Import complete: ${imported} imported. ${skipped} skipped.`);
-          initializeActiveTrackerUI();
-        }
-      } catch (err) { alert("Import failed: Could not parse JSON."); } 
-      finally { event.target.value = ''; }
-    };
-    reader.readAsText(file);
   }
 
   function changeMonth(dir) {
@@ -927,29 +1707,72 @@
     const oldConf = getActiveConfig();
     document.getElementById(oldConf.contentWrapperId).classList.remove('active');
     document.querySelector(`.tabs-vertical .tab-link[data-tab="${activeTrackerId}"]`).classList.remove('active');
-    containerElement.classList.remove(oldConf.themeClass);
+    mainContainerElement.classList.remove(oldConf.themeClass); 
+    
     activeTrackerId = newTabId;
+    
     const newConf = getActiveConfig();
     document.getElementById(newConf.contentWrapperId).classList.add('active');
     document.querySelector(`.tabs-vertical .tab-link[data-tab="${activeTrackerId}"]`).classList.add('active');
-    containerElement.classList.add(newConf.themeClass);
-    initializeActiveTrackerUI();
+    mainContainerElement.classList.add(newConf.themeClass); 
+
+    initializeActiveTrackerUI(); 
+
+    if (statsPanelContainer.classList.contains('open')) {
+        showActiveStatsPanel(); 
+    }
   }
   
   function initializeActiveTrackerUI() {
     const config = getActiveConfig();
     document.getElementById(config.dateInputId).value = G_TODAY_STRING_CA;
-    document.getElementById(config.textInputId).value = localStorage.getItem(config.localStoragePrefix + G_TODAY_STRING_CA) || "";
-    loadLog(); renderCalendar(); updateCalendarSelectionHighlight(G_TODAY_STRING_CA);
+    
+    const savedEntry = localStorage.getItem(config.localStoragePrefix + G_TODAY_STRING_CA);
+    if (config.id === 'running') {
+        document.getElementById(config.distanceInputId).value = "";
+        document.getElementById(config.timeHoursInputId).value = "";
+        document.getElementById(config.timeMinutesInputId).value = "";
+        document.getElementById(config.timeSecondsInputId).value = "";
+        document.getElementById(config.notesInputId).value = "";
+        if (savedEntry) {
+             try {
+                const runData = JSON.parse(savedEntry);
+                document.getElementById(config.distanceInputId).value = runData.distance || "";
+                document.getElementById(config.timeHoursInputId).value = runData.time ? (runData.time.h || "") : "";
+                document.getElementById(config.timeMinutesInputId).value = runData.time ? (runData.time.m || "") : "";
+                document.getElementById(config.timeSecondsInputId).value = runData.time ? (runData.time.s || "") : "";
+                document.getElementById(config.notesInputId).value = runData.notes || "";
+            } catch(e) { console.error("Error initializing running form with saved entry", e); }
+        }
+    } else { // Workout tracker
+        document.getElementById(config.textInputId).value = savedEntry || "";
+    }
+    
+    loadLog(); 
+    renderCalendar(); 
+    updateCalendarSelectionHighlight(G_TODAY_STRING_CA);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    containerElement.classList.add(getActiveConfig().themeClass); 
-    document.querySelectorAll('.tabs-vertical .tab-link').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+    mainContainerElement.classList.add(getActiveConfig().themeClass); 
+    
+    statsToggleBtn.addEventListener('click', () => {
+        if (statsPanelContainer.classList.contains('open')) {
+            hideStatsPanel();
+        } else {
+            statsPanelContainer.classList.add('open'); 
+            showActiveStatsPanel(); 
+        }
+    });
+    
+    document.querySelectorAll('.tabs-vertical .tab-link:not(.stats-toggle)').forEach(b => {
+        b.addEventListener('click', () => switchTab(b.dataset.tab))
+    });
+
     Object.values(trackerConfigs).forEach(config => {
       document.getElementById(config.saveBtnId).addEventListener('click', saveEntry);
       document.getElementById(config.exportBtnId).addEventListener('click', exportData); 
-      document.getElementById(config.importFileId).addEventListener('change', importData);
+      document.getElementById(config.importFileId).addEventListener('change', importData); 
       document.getElementById(config.dateInputId).addEventListener('change', handleDateInputChange);
       document.getElementById(config.prevMonthBtnId).addEventListener('click', () => changeMonth(-1));
       document.getElementById(config.nextMonthBtnId).addEventListener('click', () => changeMonth(1));
